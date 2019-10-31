@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
-import Student from '../models/Student';
+import Enrollment from '../models/Enrollment';
 import File from '../models/File';
 
-class StudentController {
+class EnrollmentController {
   async index(req, res) {
-    const students = await Student.findAll({
+    const enrollments = await Enrollment.findAll({
       attributes: ['id', 'name', 'email', 'idade', 'peso', 'altura'],
       include: [
         {
@@ -16,11 +16,11 @@ class StudentController {
       ],
     });
 
-    return res.json(students);
+    return res.json(enrollments);
   }
 
   async show(req, res) {
-    const student = await Student.findOne({
+    const enrollment = await Enrollment.findOne({
       where: { id: req.params.id },
       attributes: [
         'id',
@@ -40,11 +40,11 @@ class StudentController {
       ],
     });
 
-    if (!student) {
-      return res.json({ error: 'This student no exists' });
+    if (!enrollment) {
+      return res.json({ error: 'This enrollment no exists' });
     }
 
-    const { id, name, email, idade, peso, altura, avatar } = student;
+    const { id, name, email, idade, peso, altura, avatar } = enrollment;
 
     return res.json({
       id,
@@ -59,22 +59,12 @@ class StudentController {
 
   async store(req, res) {
     const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      email: Yup.string()
-        .email()
-        .required(),
-      idade: Yup.number()
+      start_date: Yup.date().required(),
+      plan_id: Yup.number()
         .integer()
-        .positive()
-        .max(150)
         .required(),
-      peso: Yup.number()
-        .positive()
-        .max(400)
-        .required(),
-      altura: Yup.number()
-        .positive()
-        .max(3)
+      student_id: Yup.number()
+        .integer()
         .required(),
     });
 
@@ -82,32 +72,22 @@ class StudentController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const studentExists = await Student.findOne({
-      where: { email: req.body.email },
-    });
-
-    if (studentExists) {
-      return res.status(400).json({ error: 'User already exists.' });
-    }
-    console.log(req.body);
     const {
       id,
-      name,
-      email,
-      idade,
-      peso,
-      altura,
-      avatar_id,
-    } = await Student.create(req.body);
+      student_id,
+      plan_id,
+      start_date,
+      end_date,
+      price,
+    } = await Enrollment.create(req.body);
 
     return res.json({
       id,
-      name,
-      email,
-      idade,
-      peso,
-      altura,
-      avatar_id,
+      student_id,
+      plan_id,
+      start_date,
+      end_date,
+      price,
     });
   }
 
@@ -133,21 +113,21 @@ class StudentController {
 
     const { email } = req.body;
 
-    const student = await Student.findByPk(req.params.id);
+    const enrollment = await Enrollment.findByPk(req.params.id);
 
-    if (email !== student.email) {
-      const studentExists = await Student.findOne({
+    if (email !== enrollment.email) {
+      const enrollmentExists = await Enrollment.findOne({
         where: { email, id: { [Op.ne]: req.params.id } },
       });
 
-      if (studentExists) {
+      if (enrollmentExists) {
         return res
           .status(400)
           .json({ error: 'Other User already has this email.' });
       }
     }
 
-    const { id, name, idade, peso, altura } = await student.update(req.body);
+    const { id, name, idade, peso, altura } = await enrollment.update(req.body);
 
     return res.json({
       id,
@@ -160,15 +140,15 @@ class StudentController {
   }
 
   async delete(req, res) {
-    const student = await Student.findByPk(req.params.id);
-    if (!student) {
-      return res.status(404).json({ error: 'This Student not exists' });
+    const enrollment = await Enrollment.findByPk(req.params.id);
+    if (!enrollment) {
+      return res.status(404).json({ error: 'This Enrollment not exists' });
     }
 
-    await student.destroy();
+    await enrollment.destroy();
 
-    return res.status(200).json({ message: 'Student deleted successfully' });
+    return res.status(200).json({ message: 'Enrollment deleted successfully' });
   }
 }
 
-export default new StudentController();
+export default new EnrollmentController();
