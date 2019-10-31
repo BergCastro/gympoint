@@ -1,17 +1,22 @@
 import * as Yup from 'yup';
-import { Op } from 'sequelize';
 import Enrollment from '../models/Enrollment';
-import File from '../models/File';
+import Student from '../models/Student';
+import Plan from '../models/Plan';
 
 class EnrollmentController {
   async index(req, res) {
     const enrollments = await Enrollment.findAll({
-      attributes: ['id', 'name', 'email', 'idade', 'peso', 'altura'],
+      attributes: ['id', 'start_date', 'end_date', 'price'],
       include: [
         {
-          model: File,
-          as: 'avatar',
-          attributes: ['name', 'path'],
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name', 'email', 'idade', 'peso', 'altura'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['id', 'title', 'duration', 'price'],
         },
       ],
     });
@@ -22,20 +27,17 @@ class EnrollmentController {
   async show(req, res) {
     const enrollment = await Enrollment.findOne({
       where: { id: req.params.id },
-      attributes: [
-        'id',
-        'name',
-        'email',
-        'idade',
-        'peso',
-        'altura',
-        'avatar_id',
-      ],
+      attributes: ['id', 'start_date', 'end_date', 'price'],
       include: [
         {
-          model: File,
-          as: 'avatar',
-          attributes: ['id', 'name', 'path', 'url'],
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name', 'email', 'idade', 'peso', 'altura'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['id', 'title', 'duration', 'price'],
         },
       ],
     });
@@ -44,17 +46,7 @@ class EnrollmentController {
       return res.json({ error: 'This enrollment no exists' });
     }
 
-    const { id, name, email, idade, peso, altura, avatar } = enrollment;
-
-    return res.json({
-      id,
-      name,
-      email,
-      idade,
-      peso,
-      altura,
-      avatar,
-    });
+    return res.json(enrollment);
   }
 
   async store(req, res) {
@@ -93,49 +85,54 @@ class EnrollmentController {
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      name: Yup.string(),
-      email: Yup.string().email(),
-      idade: Yup.number()
-        .integer()
-        .positive()
-        .max(130),
-      peso: Yup.number()
-        .positive()
-        .max(400),
-      altura: Yup.number()
-        .positive()
-        .max(3),
+      start_date: Yup.date(),
+      plan_id: Yup.number().integer(),
+      student_id: Yup.number().integer(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const { email } = req.body;
-
     const enrollment = await Enrollment.findByPk(req.params.id);
 
-    if (email !== enrollment.email) {
-      const enrollmentExists = await Enrollment.findOne({
-        where: { email, id: { [Op.ne]: req.params.id } },
-      });
-
-      if (enrollmentExists) {
-        return res
-          .status(400)
-          .json({ error: 'Other User already has this email.' });
-      }
+    if (!enrollment) {
+      return res.status(400).json({ error: 'Enrollment not exists.' });
     }
 
-    const { id, name, idade, peso, altura } = await enrollment.update(req.body);
+    const {
+      id,
+      student_id,
+      plan_id,
+      start_date,
+      end_date,
+      price,
+    } = await enrollment.update(req.body);
+
+    const plan = await Plan.findByPk(plan_id);
+
+    const student = await Student.findByPk(student_id);
 
     return res.json({
       id,
-      name,
-      email,
-      idade,
-      peso,
-      altura,
+      student: {
+        id: student.id,
+        name: student.name,
+        email: student.email,
+        idade: student.idade,
+        peso: student.peso,
+        altura: student.altura,
+        avatar_id: student.avatar_id,
+      },
+      plan: {
+        id: plan.id,
+        title: plan.title,
+        duration: plan.duration,
+        price: plan.price,
+      },
+      start_date,
+      end_date,
+      price,
     });
   }
 
