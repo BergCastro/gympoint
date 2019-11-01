@@ -16,7 +16,7 @@ const models = [User, Student, File, Plan, Enrollment, Checkin, HelpOrder];
 class Database {
   constructor() {
     this.init();
-    // this.mongo();
+    this.mongo();
   }
 
   init() {
@@ -27,16 +27,13 @@ class Database {
       .map(model => model.associate && model.associate(this.connection.models));
   }
 
-  // async mongo() {
-  //   try {
-  //     this.mongoConnection = await mongoose.connect(process.env.MONGO_URL, {
-  //       useNewUrlParser: true,
-  //       useUnifiedTopology: true,
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  mongo() {
+    this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useFindAndModify: true,
+      useUnifiedTopology: true,
+    });
+  }
 }
 
 export default new Database();
