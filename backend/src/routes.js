@@ -9,6 +9,7 @@ import FileController from './app/controllers/FileController';
 import PlanController from './app/controllers/PlanController';
 import EnrollmentController from './app/controllers/EnrollmentController';
 import CheckinController from './app/controllers/CheckinController';
+import HelpOrderController from './app/controllers/HelpOrderController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -32,7 +33,12 @@ routes.get('/students', StudentController.index);
 // Checkins
 routes.get('/checkins', CheckinController.index);
 routes.get('/students/:id/checkins', CheckinController.show);
-routes.post('/checkins', CheckinController.store);
+routes.post('/students/:id/checkins', CheckinController.store);
+
+// HelpOrders
+routes.get('/help-orders', HelpOrderController.index);
+routes.get('/students/:id/help-orders', HelpOrderController.show);
+routes.post('/students/:id/help-orders', HelpOrderController.store);
 
 // Packages
 routes.post('/packages', PlanController.store);

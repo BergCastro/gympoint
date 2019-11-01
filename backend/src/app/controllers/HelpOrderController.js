@@ -1,15 +1,15 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
 import { subDays } from 'date-fns';
-import Checkin from '../models/Checkin';
+import HelpOrder from '../models/HelpOrder';
 import Student from '../models/Student';
 
-class CheckinController {
+class HelpOrderController {
   async index(req, res) {
     const { page = 1 } = req.query;
     try {
-      const checkins = await Checkin.findAll({
-        attributes: ['id', 'created_at'],
+      const helporders = await HelpOrder.findAll({
+        attributes: ['id', 'question', 'answer', 'answer_at', 'created_at'],
         limit: 10,
         offset: (page - 1) * 10,
         include: [
@@ -21,7 +21,7 @@ class CheckinController {
         ],
       });
 
-      return res.json(checkins);
+      return res.json(helporders);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
@@ -39,18 +39,18 @@ class CheckinController {
         return res.json({ error: 'This student no exists' });
       }
 
-      const checkins = await Checkin.findAll({
+      const helporders = await HelpOrder.findAll({
         where: { student_id: req.params.id },
         attributes: ['id', 'created_at'],
         raw: true,
       });
 
-      const studentCheckins = {
+      const studentHelpOrders = {
         student,
-        checkins,
+        helporders,
       };
 
-      return res.json(studentCheckins);
+      return res.json(studentHelpOrders);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
@@ -62,34 +62,22 @@ class CheckinController {
         student_id: Yup.number()
           .integer()
           .required(),
+        question: Yup.string().required(),
+        answer: Yup.string(),
+        answer_at: Yup.date(),
       });
 
       if (!(await schema.isValid(req.body))) {
         return res.status(400).json({ error: 'Validation fails' });
       }
 
-      const sevenDaysAgo = subDays(new Date(), 7);
+      const helporder = await HelpOrder.create(req.body);
 
-      const checkinsLastSevenDays = await Checkin.findAndCountAll({
-        where: {
-          created_at: { [Op.gte]: sevenDaysAgo },
-          student_id: req.params.id,
-        },
-      });
-
-      if (checkinsLastSevenDays.count >= 5) {
-        return res.status(403).json({
-          error: 'You already have five checkins in the last seven days',
-        });
-      }
-
-      const checkin = await Checkin.create(req.body);
-
-      return res.status(201).json(checkin);
+      return res.status(201).json(helporder);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
   }
 }
 
-export default new CheckinController();
+export default new HelpOrderController();
