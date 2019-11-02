@@ -1,14 +1,16 @@
 import * as Yup from 'yup';
-import { Op } from 'sequelize';
-import { subDays } from 'date-fns';
 import HelpOrder from '../models/HelpOrder';
 import Student from '../models/Student';
+
+import HelpOrderMail from '../jobs/HelpOrderMail';
+import Queue from '../../lib/Queue';
 
 class HelpOrderController {
   async index(req, res) {
     const { page = 1 } = req.query;
     try {
       const helporders = await HelpOrder.findAll({
+        where: { answer: null },
         attributes: ['id', 'question', 'answer', 'answer_at', 'created_at'],
         limit: 10,
         offset: (page - 1) * 10,
@@ -29,28 +31,17 @@ class HelpOrderController {
 
   async show(req, res) {
     try {
-      const student = await Student.findOne({
+      const helporder = await HelpOrder.findOne({
         where: { id: req.params.id },
-        attributes: ['id', 'name', 'email', 'idade', 'peso', 'altura'],
+        attributes: ['id', 'question', 'answer', 'answer_at', 'created_at'],
         raw: true,
       });
 
-      if (!student) {
-        return res.json({ error: 'This student no exists' });
+      if (!helporder) {
+        return res.json({ error: 'This help order no exists' });
       }
 
-      const helporders = await HelpOrder.findAll({
-        where: { student_id: req.params.id },
-        attributes: ['id', 'created_at'],
-        raw: true,
-      });
-
-      const studentHelpOrders = {
-        student,
-        helporders,
-      };
-
-      return res.json(studentHelpOrders);
+      return res.json(helporder);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
@@ -59,21 +50,34 @@ class HelpOrderController {
   async store(req, res) {
     try {
       const schema = Yup.object().shape({
-        student_id: Yup.number()
-          .integer()
-          .required(),
-        question: Yup.string().required(),
-        answer: Yup.string(),
-        answer_at: Yup.date(),
+        answer: Yup.string().required(),
       });
 
       if (!(await schema.isValid(req.body))) {
         return res.status(400).json({ error: 'Validation fails' });
       }
+      const helporder = await HelpOrder.findOne({
+        where: { id: req.params.id },
+        include: [
+          {
+            model: Student,
+            as: 'student',
+            attributes: ['id', 'name', 'email'],
+          },
+        ],
+      });
 
-      const helporder = await HelpOrder.create(req.body);
+      if (!helporder) {
+        return res.json({ error: 'This help order no exists' });
+      }
 
-      return res.status(201).json(helporder);
+      req.body.answer_at = new Date();
+
+      await helporder.update(req.body);
+      await Queue.add(HelpOrderMail.key, {
+        helporder,
+      });
+      return res.json(helporder);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

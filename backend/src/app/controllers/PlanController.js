@@ -82,7 +82,7 @@ class PlanController {
       return res.status(404).json({ error: 'This Plan not exists' });
     }
 
-    const { id, title, duration, price } = await Plan.update(req.body);
+    const { id, title, duration, price } = await plan.update(req.body);
 
     return res.json({
       id,

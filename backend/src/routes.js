@@ -10,6 +10,7 @@ import PlanController from './app/controllers/PlanController';
 import EnrollmentController from './app/controllers/EnrollmentController';
 import CheckinController from './app/controllers/CheckinController';
 import HelpOrderController from './app/controllers/HelpOrderController';
+import StudentHelpOrderController from './app/controllers/StudentHelpOrderController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -37,8 +38,11 @@ routes.post('/students/:id/checkins', CheckinController.store);
 
 // HelpOrders
 routes.get('/help-orders', HelpOrderController.index);
-routes.get('/students/:id/help-orders', HelpOrderController.show);
-routes.post('/students/:id/help-orders', HelpOrderController.store);
+routes.get('/help-orders/:id', HelpOrderController.show);
+routes.post('/help-orders/:id/answer', HelpOrderController.store);
+routes.get('/students/:id/help-orders', StudentHelpOrderController.index);
+routes.post('/students/:id/help-orders', StudentHelpOrderController.store);
+routes.put('/students/:id/help-orders', StudentHelpOrderController.update);
 
 // Packages
 routes.post('/packages', PlanController.store);
