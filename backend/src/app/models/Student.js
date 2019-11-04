@@ -9,6 +9,12 @@ class Student extends Model {
         idade: Sequelize.INTEGER,
         peso: Sequelize.DOUBLE,
         altura: Sequelize.DOUBLE,
+        enrollment_enable: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            return `${process.env.APP_URL}/files/${this.path}`;
+          },
+        },
       },
       {
         sequelize,
