@@ -1,5 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
-import { addMonths } from 'date-fns';
+import { addMonths, isBefore, isAfter } from 'date-fns';
 import Plan from './Plan';
 
 class Enrollment extends Model {
@@ -9,6 +9,18 @@ class Enrollment extends Model {
         start_date: Sequelize.DATE,
         end_date: Sequelize.DATE,
         price: Sequelize.DOUBLE,
+        enrollment_enable: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            if (
+              isBefore(this.start_date, new Date()) &&
+              isAfter(this.end_date, new Date())
+            ) {
+              return true;
+            }
+            return false;
+          },
+        },
       },
       {
         sequelize,

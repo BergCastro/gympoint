@@ -6,7 +6,15 @@ import File from '../models/File';
 class StudentController {
   async index(req, res) {
     const students = await Student.findAll({
-      attributes: ['id', 'name', 'email', 'idade', 'peso', 'altura'],
+      attributes: [
+        'id',
+        'name',
+        'email',
+        'idade',
+        'peso',
+        'altura',
+        'enrollment_enable',
+      ],
       include: [
         {
           model: File,

@@ -6,7 +6,13 @@ import Plan from '../models/Plan';
 class EnrollmentController {
   async index(req, res) {
     const enrollments = await Enrollment.findAll({
-      attributes: ['id', 'start_date', 'end_date', 'price'],
+      attributes: [
+        'id',
+        'start_date',
+        'end_date',
+        'price',
+        'enrollment_enable',
+      ],
       include: [
         {
           model: Student,
