@@ -5,16 +5,11 @@ import File from '../models/File';
 
 class StudentController {
   async index(req, res) {
+    const { q = '' } = req.query;
+
     const students = await Student.findAll({
-      attributes: [
-        'id',
-        'name',
-        'email',
-        'idade',
-        'peso',
-        'altura',
-        'enrollment_enable',
-      ],
+      where: { name: { [Op.iLike]: `%${q}%` } },
+      attributes: ['id', 'name', 'email', 'idade', 'peso', 'altura'],
       include: [
         {
           model: File,
@@ -97,7 +92,7 @@ class StudentController {
     if (studentExists) {
       return res.status(400).json({ error: 'User already exists.' });
     }
-    console.log(req.body);
+
     const {
       id,
       name,
