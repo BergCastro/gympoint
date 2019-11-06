@@ -21,7 +21,7 @@ import {
   cleanCurrentMeetup,
 } from '~/store/modules/meetup/actions';
 
-export default function Dashboard() {
+export default function Alunos() {
   // const [meetups, setMeetups] = useState([]);
   const meetups = useSelector(state => state.meetup.meetups);
   const dispatch = useDispatch();

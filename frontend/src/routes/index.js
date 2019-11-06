@@ -5,7 +5,7 @@ import Route from './Route';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 
-import Dashboard from '../pages/Dashboard';
+import Alunos from '../pages/Alunos';
 import Detalhes from '../pages/Detalhes';
 import Profile from '../pages/Profile';
 import NovoMeetup from '../pages/NovoMeetup';
@@ -17,7 +17,7 @@ export default function Routes() {
       <Route path="/" exact component={SignIn} />
       <Route path="/register" component={SignUp} />
 
-      <Route path="/dashboard" component={Dashboard} isPrivate />
+      <Route path="/alunos" component={Alunos} isPrivate />
       <Route path="/editMeetup" component={EditMeetup} isPrivate />
       <Route path="/newMeetup" component={NovoMeetup} isPrivate />
       <Route path="/detalhes" component={Detalhes} isPrivate />

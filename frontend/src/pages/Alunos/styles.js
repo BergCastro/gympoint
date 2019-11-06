@@ -47,7 +47,7 @@ export const Container = styled.div`
     ul {
       display: flex;
       flex-direction: column;
-      margin-top: 30px;
+
       button {
         background: none;
         border: 0;
