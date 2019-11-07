@@ -47,7 +47,7 @@ export default function SignIn() {
           placeholder="Sua senha secreta"
         />
 
-        <button type="submit" style={{ background: '#EE4D64' }}>
+        <button type="submit">
           {loading ? 'Carregando...' : 'Entrar no sistema'}
         </button>
         <Link to="/register">Criar conta grátis</Link>

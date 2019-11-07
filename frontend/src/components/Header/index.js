@@ -30,7 +30,7 @@ export default function Header() {
           <Profile>
             <div>
               <strong>{profile.name}</strong>
-              <Link to="/profile">sair do sistema</Link>
+              <Link onClick={() => handleLogout()}>sair do sistema</Link>
             </div>
           </Profile>
         </aside>

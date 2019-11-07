@@ -15,6 +15,7 @@ export const Content = styled.div`
   height: 448px;
   text-align: center;
   background: #fff;
+  border-radius: 4px;
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -62,7 +63,7 @@ export const Content = styled.div`
     button {
       margin: 5px 0 0;
       height: 45px;
-      background: #3b9eff;
+      background: #EE4D64;
       font-weight: bold;
       color: #fff;
       border: 0;
@@ -71,7 +72,7 @@ export const Content = styled.div`
       transition: background 0.2s;
 
       &:hover {
-        background: ${darken(0.03, '#3b9eff')};
+        background: ${darken(0.03, '#EE4D64')};
       }
     }
 
