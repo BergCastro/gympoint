@@ -9,27 +9,21 @@ import api from '~/services/api';
 import BannerInput from './BannerInput';
 import DatePicker from '~/components/ReactDatePicker';
 import { Container } from './styles';
-import { updateMeetupRequest } from '~/store/modules/meetup/actions';
+import { createAlunoRequest } from '~/store/modules/aluno/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
+export default function NovoAluno() {
+  const currentAluno = useSelector(state => state.aluno.currentAluno);
 
-export default function EditMeetup() {
-  const currentMeetup = useSelector(state => state.meetup.currentMeetup);
-
-  const meetup = {
-    ...currentMeetup,
-    date: parseISO(currentMeetup.date),
-  };
+  // const aluno = {
+  //   ...currentAluno,
+  //   date: parseISO(currentAluno.date),
+  // };
   const history = useHistory();
   const dispatch = useDispatch();
 
-  function handleSubmit(meetup) {
-    dispatch(
-      updateMeetupRequest({
-        ...meetup,
-        id: currentMeetup.id,
-      })
-    );
+  function handleSubmit(aluno) {
+    dispatch(createAlunoRequest(aluno));
   }
 
   const schema = Yup.object().shape({
@@ -44,21 +38,21 @@ export default function EditMeetup() {
   return (
     <Container>
       <Form
-        initialData={meetup}
+        initialData={currentAluno}
         onSubmit={handleSubmit}
         schema={schema}
         autocomplete="off"
       >
         <BannerInput name="file_id" />
 
-        <Input name="title" placeholder="Título do Meetup" />
+        <Input name="title" placeholder="Título do Aluno" />
         <Input multiline name="description" placeholder="Descricao completa" />
-        {/* <Input name="date" placeholder="Data do meetup" /> */}
+        {/* <Input name="date" placeholder="Data do aluno" /> */}
         <DatePicker name="date" />
-        <Input name="location" placeholder="Data do meetup" />
+        <Input name="location" placeholder="Localização" />
 
         <button id="btnUpdate" type="submit">
-          Atualizar perfil
+          Salvar aluno
         </button>
       </Form>
     </Container>

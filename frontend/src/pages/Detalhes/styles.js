@@ -101,7 +101,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Meetup = styled.li`
+export const Aluno = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;

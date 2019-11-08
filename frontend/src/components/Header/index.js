@@ -20,10 +20,10 @@ export default function Header() {
         <nav>
           <img src={logo} alt="Gympoint" />
           <img id="name" src={logoGympoint} alt="Gympoint" />
-          <Link to={'/dashboard'}>ALUNOS</Link>
-          <Link to={'/dashboard'}>PLANOS</Link>
-          <Link to={'/dashboard'}>MATRÍCULAS</Link>
-          <Link to={'/dashboard'}>PEDIDOS DE AUXÍLIO</Link>
+          <Link to={'/alunos'}>ALUNOS</Link>
+          <Link to={'/planos'}>PLANOS</Link>
+          <Link to={'/matriculas'}>MATRÍCULAS</Link>
+          <Link to={'/pedidos'}>PEDIDOS DE AUXÍLIO</Link>
         </nav>
 
         <aside>

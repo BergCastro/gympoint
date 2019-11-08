@@ -28,7 +28,7 @@ export default function Detalhes() {
     history.push('/editMeetup');
   }
   function handleCancelar() {
-    history.push('/dashboard');
+    history.push('/alunos');
   }
 
   function formatDate(date) {

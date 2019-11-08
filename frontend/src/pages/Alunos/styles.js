@@ -42,21 +42,41 @@ export const Container = styled.div`
     }
   }
   div {
+    display: flex;
     background: #fff;
     margin-top: 24px;
-    ul {
-      display: flex;
-      flex-direction: column;
 
-      button {
-        background: none;
-        border: 0;
+    table {
+      margin: 20px;
+      width: 100%;
+      border-collapse: collapse;
+      border-style: hidden;
+
+      th {
+        text-align: left;
+        font-size: 16px;
+        color: #444;
+        font-weight: bold;
+      }
+
+      tr {
+        height: 50px;
+        font-size: 16px;
+        color: #666;
+        border-bottom: 0px solid #666;
+      }
+      tr + tr {
+        border-bottom: 1px solid #666;
+      }
+
+      a + a {
+        margin-left: 20px;
       }
     }
   }
 `;
 
-export const Meetup = styled.li`
+export const Aluno = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;

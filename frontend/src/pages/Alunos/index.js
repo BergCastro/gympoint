@@ -14,67 +14,72 @@ import {
 import { Link, useHistory } from 'react-router-dom';
 import api from '~/services/api';
 
-import { Container, Meetup } from './styles';
+import { Container, Aluno } from './styles';
 import {
-  loadMeetups,
-  loadCurrentMeetup,
-  cleanCurrentMeetup,
-} from '~/store/modules/meetup/actions';
+  loadAlunos,
+  loadCurrentAluno,
+  cleanCurrentAluno,
+} from '~/store/modules/aluno/actions';
 
 export default function Alunos() {
-  // const [meetups, setMeetups] = useState([]);
-  const meetups = useSelector(state => state.meetup.meetups);
+  // const [alunos, setAlunos] = useState([]);
+  const alunos = useSelector(state => state.aluno.alunos);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    async function loadOrganizingMeetups() {
-      const response = await api.get('organizing');
-      dispatch(loadMeetups(response.data));
-      // setMeetups(response.data);
+    async function loadAllAlunos() {
+      const response = await api.get('students');
+      dispatch(loadAlunos(response.data));
+      // setAlunos(response.data);
     }
 
-    loadOrganizingMeetups();
+    loadAllAlunos();
   }, []);
 
-  function handleNovoMeetup() {
-    dispatch(cleanCurrentMeetup());
-    history.push('/newMeetup');
+  function handleNovoAluno() {
+    dispatch(cleanCurrentAluno());
+    history.push('/newAluno');
   }
   function formatDate(date) {
     return format(parseISO(date), "d 'de' MMMM', às' HH'h' ", { locale: pt });
   }
 
-  function handleEditMeetup(meetup) {
-    //meetup.date = formatDate(meetup.date);
-    dispatch(loadCurrentMeetup(meetup));
-    history.push('/detalhes');
+  function handleEditAluno(aluno) {
+    //aluno.date = formatDate(aluno.date);
+    dispatch(loadCurrentAluno(aluno));
+    history.push('/editAluno');
   }
 
   return (
     <Container>
       <header>
         <strong>Gerenciando alunos</strong>
-        <button type="button" onClick={handleNovoMeetup}>
+        <button type="button" onClick={handleNovoAluno}>
           <MdAdd id="btNovo" size={20} color="#fff" />
           CADASTRAR
         </button>
       </header>
       <div>
-        <ul>
-          {meetups.map(meetup => (
-            <Meetup key={meetup.id}>
-              <strong>{meetup.title}</strong>
-              <div>
-                <span>{formatDate(meetup.date)}</span>
-
-                <button onClick={() => handleEditMeetup(meetup)}>
-                  <MdKeyboardArrowRight size={23} color="#FFF" />
-                </button>
-              </div>
-            </Meetup>
+        <table>
+          <tr>
+            <th>NOME</th>
+            <th>EMAIL</th>
+            <th style={{ textAlign: 'center' }}>IDADE</th>
+            <th></th>
+          </tr>
+          {alunos.map(aluno => (
+            <tr key={aluno.id}>
+              <td>{aluno.name}</td>
+              <td>{aluno.email}</td>
+              <td style={{ textAlign: 'center' }}>{aluno.idade}</td>
+              <td style={{ textAlign: 'right' }}>
+                <Link onClick={() => handleEditAluno(aluno)}>editar</Link>
+                <Link>apagar</Link>
+              </td>
+            </tr>
           ))}
-        </ul>
+        </table>
       </div>
     </Container>
   );

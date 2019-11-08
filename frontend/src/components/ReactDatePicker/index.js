@@ -25,7 +25,7 @@ export default function DatePicker({ name }) {
     <>
       <ReactDatePicker
         name={fieldName}
-        placeholderText="Data do meetup"
+        placeholderText="Data do aluno"
         selected={selected}
         onChange={date => setSelected(date)}
         showTimeSelect
