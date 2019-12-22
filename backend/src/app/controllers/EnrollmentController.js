@@ -77,8 +77,8 @@ class EnrollmentController {
       start_date,
       end_date,
       price,
+      enrollment_enable,
     } = await Enrollment.create(req.body);
-
     return res.json({
       id,
       student_id,
@@ -86,6 +86,7 @@ class EnrollmentController {
       start_date,
       end_date,
       price,
+      enrollment_enable,
     });
   }
 

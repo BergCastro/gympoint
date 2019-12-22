@@ -5,6 +5,20 @@ export function updateAlunoRequest(data) {
   };
 }
 
+export function removeAlunoRequest(aluno) {
+  return {
+    type: '@aluno/REMOVE_ALUNO_REQUEST',
+    payload: aluno,
+  };
+}
+
+export function removeAlunoSuccess(aluno) {
+  return {
+    type: '@aluno/REMOVE_ALUNO_SUCCESS',
+    payload: aluno,
+  };
+}
+
 export function updateAlunoSuccess(aluno) {
   return {
     type: '@aluno/UPDATE_ALUNO_SUCCESS',

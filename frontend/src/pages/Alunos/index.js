@@ -19,6 +19,7 @@ import {
   loadAlunos,
   loadCurrentAluno,
   cleanCurrentAluno,
+  removeAlunoRequest,
 } from '~/store/modules/aluno/actions';
 
 export default function Alunos() {
@@ -39,16 +40,19 @@ export default function Alunos() {
 
   function handleNovoAluno() {
     dispatch(cleanCurrentAluno());
-    history.push('/newAluno');
+    history.push('/aluno/novo');
   }
   function formatDate(date) {
     return format(parseISO(date), "d 'de' MMMM', às' HH'h' ", { locale: pt });
   }
 
   function handleEditAluno(aluno) {
-    //aluno.date = formatDate(aluno.date);
     dispatch(loadCurrentAluno(aluno));
-    history.push('/editAluno');
+    history.push('/aluno/editar');
+  }
+
+  function handleRemoveAluno(aluno) {
+    dispatch(removeAlunoRequest(aluno));
   }
 
   return (
@@ -74,8 +78,18 @@ export default function Alunos() {
               <td>{aluno.email}</td>
               <td style={{ textAlign: 'center' }}>{aluno.idade}</td>
               <td style={{ textAlign: 'right' }}>
-                <Link onClick={() => handleEditAluno(aluno)}>editar</Link>
-                <Link>apagar</Link>
+                <Link
+                  onClick={() => handleEditAluno(aluno)}
+                  style={{ color: '#4D85EE' }}
+                >
+                  editar
+                </Link>
+                <Link
+                  onClick={() => handleRemoveAluno(aluno)}
+                  style={{ color: '#DE3B3B' }}
+                >
+                  apagar
+                </Link>
               </td>
             </tr>
           ))}
