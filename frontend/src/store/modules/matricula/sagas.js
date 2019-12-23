@@ -17,7 +17,7 @@ export function* updateMatricula({ payload }) {
       `enrollments/${matricula.id}`,
       matricula
     );
-    toast.success('Matricula atualizado com sucesso!');
+    toast.success('Matricula atualizada com sucesso!');
     console.log(response.data);
     yield put(updateMatriculaSuccess(response.data));
   } catch (err) {

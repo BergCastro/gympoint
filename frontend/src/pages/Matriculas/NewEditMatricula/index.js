@@ -13,7 +13,6 @@ import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
 import DatePicker from '~/components/ReactDatePicker';
 import api from '~/services/api';
 import { format, parseISO } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 
 export default function NewEditMatricula() {
   const currentMatricula = useSelector(
@@ -22,6 +21,7 @@ export default function NewEditMatricula() {
 
   const [students, setStudents] = useState([]);
   const [planos, setPlanos] = useState([]);
+
   const { action } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ export default function NewEditMatricula() {
     async function loadAll() {
       const responseStudents = await api.get('students');
       const responsePlanos = await api.get('packages');
-      console.log('students', responseStudents);
+      console.log('planos', responsePlanos);
       setStudents(responseStudents.data);
       setPlanos(responsePlanos.data);
     }
@@ -38,11 +38,12 @@ export default function NewEditMatricula() {
     loadAll();
   }, []);
 
-  function dateFormatted(date) {
-    return new Date(date);
+  function formatDate(date) {
+    return format(parseISO(date), 'dd/MM/yyyy');
   }
 
   function handleSubmit(matricula) {
+    console.log('matricula');
     if (action === 'editar') {
       dispatch(
         updateMatriculaRequest({
@@ -65,8 +66,6 @@ export default function NewEditMatricula() {
       .required(),
   });
 
-  function handleProgress(progress, event) {}
-
   function handleBack() {
     history.push('/matriculas');
   }
@@ -74,12 +73,6 @@ export default function NewEditMatricula() {
   const studentsAdapted = students.map(student => {
     return { ...student, title: student.name };
   });
-
-  function handleChangePlan(event) {
-    // currentMatricula.plan.id = event.target.value;
-    // const planSelected = planos.filter(plan => plan.id == event.target.value);
-    // console.log(planSelected);
-  }
 
   return (
     <Container>
@@ -91,7 +84,7 @@ export default function NewEditMatricula() {
       >
         <header>
           <strong>
-            {action === 'novo' ? 'Cadastro' : 'Edição'} de matricula
+            {action === 'novo' ? 'Cadastro' : 'Edição'} de matrícula
           </strong>
           <div>
             <ButtonVoltar type="button" onClick={handleBack}>
@@ -109,7 +102,7 @@ export default function NewEditMatricula() {
           <Select
             name="student_id"
             options={studentsAdapted}
-            value={currentMatricula.student && currentMatricula.student.id}
+            //value={currentMatricula.student_id}
           />
 
           <div>
@@ -119,8 +112,9 @@ export default function NewEditMatricula() {
                 className="normal"
                 name="plan_id"
                 options={planos}
-                value={currentMatricula.plan && currentMatricula.plan.id}
-                onChange={event => handleChangePlan(event)}
+                //value={currentMatricula.plan_id}
+                //value={plano}
+                //onChange={event => handleChangePlan(event)}
               />
             </div>
             <div>

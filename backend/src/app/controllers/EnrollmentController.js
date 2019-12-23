@@ -8,6 +8,8 @@ class EnrollmentController {
     const enrollments = await Enrollment.findAll({
       attributes: [
         'id',
+        'student_id',
+        'plan_id',
         'start_date',
         'end_date',
         'price',

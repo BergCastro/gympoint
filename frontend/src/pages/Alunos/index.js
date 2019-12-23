@@ -66,33 +66,37 @@ export default function Alunos() {
       </header>
       <div>
         <table>
-          <tr>
-            <th>NOME</th>
-            <th>EMAIL</th>
-            <th style={{ textAlign: 'center' }}>IDADE</th>
-            <th></th>
-          </tr>
-          {alunos.map(aluno => (
-            <tr key={aluno.id}>
-              <td>{aluno.name}</td>
-              <td>{aluno.email}</td>
-              <td style={{ textAlign: 'center' }}>{aluno.idade}</td>
-              <td style={{ textAlign: 'right' }}>
-                <Link
-                  onClick={() => handleEditAluno(aluno)}
-                  style={{ color: '#4D85EE' }}
-                >
-                  editar
-                </Link>
-                <Link
-                  onClick={() => handleRemoveAluno(aluno)}
-                  style={{ color: '#DE3B3B' }}
-                >
-                  apagar
-                </Link>
-              </td>
+          <thead>
+            <tr>
+              <th>NOME</th>
+              <th>EMAIL</th>
+              <th style={{ textAlign: 'center' }}>IDADE</th>
+              <th></th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {alunos.map(aluno => (
+              <tr key={aluno.id}>
+                <td>{aluno.name}</td>
+                <td>{aluno.email}</td>
+                <td style={{ textAlign: 'center' }}>{aluno.idade}</td>
+                <td style={{ textAlign: 'right' }}>
+                  <Link
+                    onClick={() => handleEditAluno(aluno)}
+                    style={{ color: '#4D85EE' }}
+                  >
+                    editar
+                  </Link>
+                  <Link
+                    onClick={() => handleRemoveAluno(aluno)}
+                    style={{ color: '#DE3B3B' }}
+                  >
+                    apagar
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </Container>

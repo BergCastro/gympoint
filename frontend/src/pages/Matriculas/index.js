@@ -38,7 +38,7 @@ export default function Matriculas() {
     history.push('/matricula/novo');
   }
   function formatDate(date) {
-    return format(parseISO(date), "d 'de' MMMM', às' HH'h' ", { locale: pt });
+    return format(parseISO(date), "d 'de' MMMM' de 'yyyy", { locale: pt });
   }
 
   function handleEditMatricula(matricula) {
@@ -77,8 +77,12 @@ export default function Matriculas() {
                 <td>{matricula.student.name}</td>
                 <td>{matricula.plan.title}</td>
 
-                <td style={{ textAlign: 'center' }}>{matricula.start_date}</td>
-                <td style={{ textAlign: 'center' }}>{matricula.end_date}</td>
+                <td style={{ textAlign: 'center' }}>
+                  {formatDate(matricula.start_date)}
+                </td>
+                <td style={{ textAlign: 'center' }}>
+                  {formatDate(matricula.end_date)}
+                </td>
                 <td style={{ textAlign: 'center' }}>
                   <IoIosCheckmarkCircle
                     size={20}
