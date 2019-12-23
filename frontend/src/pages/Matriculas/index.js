@@ -27,6 +27,7 @@ export default function Matriculas() {
       const response = await api.get('enrollments');
       dispatch(loadMatriculas(response.data));
       // setMatriculas(response.data);
+      console.log('teste data', new Date());
     }
 
     loadAllMatriculas();

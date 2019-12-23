@@ -8,7 +8,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 export default function DatePicker({ name }) {
   const ref = useRef(null);
   const { fieldName, registerField, defaultValue, error } = useField(name);
-  const [selected, setSelected] = useState(defaultValue);
+  const [selected, setSelected] = useState(new Date(defaultValue));
+
+  console.log(defaultValue);
 
   useEffect(() => {
     registerField({
@@ -25,14 +27,9 @@ export default function DatePicker({ name }) {
     <>
       <ReactDatePicker
         name={fieldName}
-        placeholderText="Data do aluno"
+        placeholderText="Data de início"
         selected={selected}
         onChange={date => setSelected(date)}
-        showTimeSelect
-        timeFormat="HH:mm"
-        timeIntervals={15}
-        timeCaption="time"
-        dateFormat="dd/MM/yyyy  HH:mm'h'"
         ref={ref}
       />
       {error && <span>{error}</span>}

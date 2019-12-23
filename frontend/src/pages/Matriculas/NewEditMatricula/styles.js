@@ -29,80 +29,83 @@ export const Container = styled.div`
     flex-direction: column;
 
 
-  div.content {
-    display: flex;
-    padding: 20px;
-    flex-direction: column;
-    background: #fff;
-    margin-top: 24px;
-
-
-
-    label {
-      font-size: 14px;
-      font-weight: bold;
-      color: #444;
-    }
-
-    input {
-      background: #fff;
-      border: 1px solid;
-      border-color: #ddd
-      border-radius: 4px;
-      height: 45px;
-      width: 100%;
-      padding: 0 15px;
-      color: #444;
-      margin: 0 0 10px;
-      font-size: 16px;
-
-      &::placeholder {
-        color: #999;
-      }
-
-
-    }
-
-    select {
-      background: #fff;
-      border: 1px solid;
-      border-color: #ddd
-      border-radius: 4px;
-      height: 45px;
-      width: 100%;
-      padding: 0 15px;
-      color: #444;
-      margin: 0 0 10px;
-      font-size: 16px;
-
-      &::placeholder {
-        color: #999;
-      }
-
-
-    }
-
-
-
-    span {
-      color: #fb6f91;
-      align-self: flex-start;
-      margin: 0 0 10px;
-      font-weight: bold;
-    }
-    div {
+    div.content {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      div {
-        display: flex;
-        flex-direction: column;
-        input {
-         width: 198px;
-        }
+      padding: 20px;
+      flex-direction: column;
+      background: #fff;
+      margin-top: 24px;
+
+
+
+      label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #444;
       }
+
+      input {
+        background: #fff;
+        border: 1px solid;
+        border-color: #ddd
+        border-radius: 4px;
+        height: 45px;
+        width: 100%;
+        padding: 0 15px;
+        color: #444;
+        margin: 0 0 10px;
+        font-size: 16px;
+
+        &::placeholder {
+          color: #999;
+        }
+
+
+      }
+      .disabled {
+        background: #f5f5f5;
+      }
+
+      select {
+        background: #fff;
+        border: 1px solid;
+        border-color: #ddd
+        border-radius: 4px;
+        height: 45px;
+        width: 100%;
+        padding: 0 15px;
+        color: #444;
+        margin: 0 0 10px;
+        font-size: 16px;
+
+        &::placeholder {
+          color: #999;
+        }
+
+
+      }
+
+
+
+      span {
+        color: #fb6f91;
+        align-self: flex-start;
+        margin: 0 0 10px;
+        font-weight: bold;
+      }
+      /* div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        div {
+          display: flex;
+          flex-direction: column;
+          input.normal {
+          width: 198px;
+          }
+        }
+      } */
     }
-  }
   }
 `;
 

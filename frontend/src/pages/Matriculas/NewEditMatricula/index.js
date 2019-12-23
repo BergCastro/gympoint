@@ -10,12 +10,16 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
+import DatePicker from '~/components/ReactDatePicker';
 import api from '~/services/api';
+import { format, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 
 export default function NewEditMatricula() {
   const currentMatricula = useSelector(
     state => state.matricula.currentMatricula
   );
+
   const [students, setStudents] = useState([]);
   const [planos, setPlanos] = useState([]);
   const { action } = useParams();
@@ -33,6 +37,10 @@ export default function NewEditMatricula() {
 
     loadAll();
   }, []);
+
+  function dateFormatted(date) {
+    return new Date(date);
+  }
 
   function handleSubmit(matricula) {
     if (action === 'editar') {
@@ -63,6 +71,16 @@ export default function NewEditMatricula() {
     history.push('/matriculas');
   }
 
+  const studentsAdapted = students.map(student => {
+    return { ...student, title: student.name };
+  });
+
+  function handleChangePlan(event) {
+    // currentMatricula.plan.id = event.target.value;
+    // const planSelected = planos.filter(plan => plan.id == event.target.value);
+    // console.log(planSelected);
+  }
+
   return (
     <Container>
       <Form
@@ -87,25 +105,35 @@ export default function NewEditMatricula() {
           </div>
         </header>
         <div className="content">
-          <label>Aluno</label>
-          <Select name="student_id" options={students} />
+          <label>ALUNO</label>
+          <Select
+            name="student_id"
+            options={studentsAdapted}
+            value={currentMatricula.student && currentMatricula.student.id}
+          />
 
           <div>
-            <div>
+            <div className="normal">
               <label>PLANO</label>
-              <Select name="plan_id" options={planos} />
+              <Select
+                className="normal"
+                name="plan_id"
+                options={planos}
+                value={currentMatricula.plan && currentMatricula.plan.id}
+                onChange={event => handleChangePlan(event)}
+              />
             </div>
             <div>
               <label>DATA DE INÍCIO</label>
-              <Input name="start_date" placeholder="Data de Início" />
+              <DatePicker name="start_date" />
             </div>
-            <div>
+            <div className="normal">
               <label>DATA DE TÉRMINO</label>
-              <Input name="end_date" />
+              <Input name="end_date" className="disabled normal" disabled />
             </div>
-            <div>
+            <div className="normal">
               <label>VALOR FINAL</label>
-              <Input name="total_amount" />
+              <Input name="price" className="disabled normal" disabled />
             </div>
           </div>
         </div>
