@@ -33,7 +33,6 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'eslint-disable-next-line': false,
-   ' react-hooks/exhaustive-deps': false;
   },
   settings: {
     'import/resolver': {

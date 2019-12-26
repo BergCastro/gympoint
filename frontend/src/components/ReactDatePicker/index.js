@@ -5,7 +5,7 @@ import { useField } from '@rocketseat/unform';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default function DatePicker({ name }) {
+export default function DatePicker({ name, handleChangeStartDate }) {
   const ref = useRef(null);
   const { fieldName, registerField, defaultValue, error } = useField(name);
   const [selected, setSelected] = useState(
@@ -23,14 +23,19 @@ export default function DatePicker({ name }) {
     });
   }, [ref.current, fieldName]); // eslint-disable-line
 
+  function handleChangeDate(date) {
+    setSelected(date);
+    handleChangeStartDate(date);
+  }
+
   return (
     <>
       <ReactDatePicker
         name={fieldName}
         placeholderText="Data de início"
         selected={selected}
-        onChange={date => setSelected(date)}
-        dateFormat={'dd/MM/yyyy'}
+        onChange={date => handleChangeDate(date)}
+        dateFormat="dd/MM/yyyy"
         ref={ref}
       />
       {error && <span>{error}</span>}

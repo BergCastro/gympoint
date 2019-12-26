@@ -11,6 +11,8 @@ import api from '~/services/api';
 import { Container } from './styles';
 import {
   loadMatriculas,
+  loadPlans,
+  loadStudents,
   loadCurrentMatricula,
   cleanCurrentMatricula,
   removeMatriculaRequest,
@@ -25,13 +27,18 @@ export default function Matriculas() {
   useEffect(() => {
     async function loadAllMatriculas() {
       const response = await api.get('enrollments');
+      const responseStudents = await api.get('students');
+      const responsePlanos = await api.get('packages');
+
       dispatch(loadMatriculas(response.data));
+      dispatch(loadPlans(responsePlanos.data));
+      dispatch(loadStudents(responseStudents.data));
       // setMatriculas(response.data);
       console.log('teste data', new Date());
     }
 
     loadAllMatriculas();
-  }, []);
+  }, [dispatch]);
 
   function handleNovoMatricula() {
     dispatch(cleanCurrentMatricula());
@@ -68,45 +75,53 @@ export default function Matriculas() {
               <th style={{ textAlign: 'center' }}>INÍCIO</th>
               <th style={{ textAlign: 'center' }}>TÉRMINO</th>
               <th style={{ textAlign: 'center' }}>ATIVA</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>
-            {matriculas.map(matricula => (
-              <tr key={matricula.id}>
-                <td>{matricula.student.name}</td>
-                <td>{matricula.plan.title}</td>
+            {matriculas.length > 0 ? (
+              matriculas.map(matricula => (
+                <tr key={matricula.id}>
+                  <td>{matricula.student.name}</td>
+                  <td>{matricula.plan.title}</td>
 
-                <td style={{ textAlign: 'center' }}>
-                  {formatDate(matricula.start_date)}
-                </td>
-                <td style={{ textAlign: 'center' }}>
-                  {formatDate(matricula.end_date)}
-                </td>
-                <td style={{ textAlign: 'center' }}>
-                  <IoIosCheckmarkCircle
-                    size={20}
-                    color={
-                      matricula.enrollment_enable === true ? 'green' : '#ccc'
-                    }
-                  />
-                </td>
-                <td style={{ textAlign: 'right' }}>
-                  <Link
-                    onClick={() => handleEditMatricula(matricula)}
-                    style={{ color: '#4D85EE' }}
-                  >
-                    editar
-                  </Link>
-                  <Link
-                    onClick={() => handleRemoveMatricula(matricula)}
-                    style={{ color: '#DE3B3B' }}
-                  >
-                    apagar
-                  </Link>
+                  <td style={{ textAlign: 'center' }}>
+                    {formatDate(matricula.start_date)}
+                  </td>
+                  <td style={{ textAlign: 'center' }}>
+                    {formatDate(matricula.end_date)}
+                  </td>
+                  <td style={{ textAlign: 'center' }}>
+                    <IoIosCheckmarkCircle
+                      size={20}
+                      color={
+                        matricula.enrollment_enable === true ? 'green' : '#ccc'
+                      }
+                    />
+                  </td>
+                  <td style={{ textAlign: 'right' }}>
+                    <Link
+                      onClick={() => handleEditMatricula(matricula)}
+                      style={{ color: '#4D85EE' }}
+                    >
+                      editar
+                    </Link>
+                    <Link
+                      onClick={() => handleRemoveMatricula(matricula)}
+                      style={{ color: '#DE3B3B' }}
+                    >
+                      apagar
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" style={{ textAlign: 'center' }}>
+                  Nenhum resultado foi encontrado
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

@@ -59,3 +59,15 @@ export function loadMatriculas(matriculas) {
     payload: matriculas,
   };
 }
+export function loadStudents(students) {
+  return {
+    type: '@matricula/LOAD_STUDENTS',
+    payload: students,
+  };
+}
+export function loadPlans(plans) {
+  return {
+    type: '@matricula/LOAD_PLANS',
+    payload: plans,
+  };
+}

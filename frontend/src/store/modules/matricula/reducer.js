@@ -1,8 +1,19 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
-  currentMatricula: {},
+  currentMatricula: {
+    student_id: '',
+    plan_id: '',
+    price: '',
+    start_date: new Date(),
+    plan: {
+      duration: 0,
+      price: 0,
+    },
+  },
   matriculas: [],
+  students: [],
+  plans: [],
 };
 
 export default function matricula(state = INITIAL_STATE, action) {
@@ -20,6 +31,14 @@ export default function matricula(state = INITIAL_STATE, action) {
         draft.matriculas = action.payload;
         break;
       }
+      case '@matricula/LOAD_STUDENTS': {
+        draft.students = action.payload;
+        break;
+      }
+      case '@matricula/LOAD_PLANS': {
+        draft.plans = action.payload;
+        break;
+      }
       case '@matricula/CREATE_MATRICULA_SUCCESS': {
         draft.currentMatricula = action.payload;
         break;
@@ -31,7 +50,16 @@ export default function matricula(state = INITIAL_STATE, action) {
         break;
       }
       case '@matricula/CLEAN_CURRENT_MATRICULA': {
-        draft.currentMatricula = {};
+        draft.currentMatricula = {
+          student_id: '',
+          plan_id: '',
+          price: '',
+          start_date: new Date(),
+          plan: {
+            duration: 0,
+            price: 0,
+          },
+        };
         break;
       }
       default:

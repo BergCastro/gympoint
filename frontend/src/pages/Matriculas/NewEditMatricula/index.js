@@ -1,49 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import React, { useState, useMemo } from 'react';
+// import { useParams } from 'react-router';
 import { Form, Input, Select } from '@rocketseat/unform';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
+import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
+import { format, parseISO, addMonths, isValid, parse } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import { Container, ButtonSalvar, ButtonVoltar } from './styles';
 import {
   updateMatriculaRequest,
   createMatriculaRequest,
 } from '~/store/modules/matricula/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import * as Yup from 'yup';
-import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
 import DatePicker from '~/components/ReactDatePicker';
-import api from '~/services/api';
-import { format, parseISO } from 'date-fns';
 
 export default function NewEditMatricula() {
+  const planos = useSelector(state => state.matricula.plans);
+  const students = useSelector(state => state.matricula.students);
   const currentMatricula = useSelector(
     state => state.matricula.currentMatricula
   );
 
-  const [students, setStudents] = useState([]);
-  const [planos, setPlanos] = useState([]);
+  const [matricula, setMatricula] = useState(currentMatricula);
 
   const { action } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    async function loadAll() {
-      const responseStudents = await api.get('students');
-      const responsePlanos = await api.get('packages');
-      console.log('planos', responsePlanos);
-      setStudents(responseStudents.data);
-      setPlanos(responsePlanos.data);
-    }
-
-    loadAll();
-  }, []);
-
   function formatDate(date) {
-    return format(parseISO(date), 'dd/MM/yyyy');
+    if (isValid(date)) {
+      return format(date, 'dd/MM/yyyy');
+    }
+    const nowDate = new Date();
+    return `${nowDate.getDate()}/${nowDate.getMonth() +
+      1}/${nowDate.getFullYear()}`;
   }
+  const endDate = useMemo(() => {
+    console.log('endDate', matricula.start_date);
+    return addMonths(
+      parseISO(formatDate(matricula.start_date)),
+      matricula.plan.duration
+    );
+  }, [matricula]);
+
+  const price = useMemo(
+    () => `R$ ${matricula.plan.price * matricula.plan.duration},00`,
+    [matricula]
+  );
 
   function handleSubmit(matricula) {
-    console.log('matricula');
+    console.log('matricula', matricula);
     if (action === 'editar') {
       dispatch(
         updateMatriculaRequest({
@@ -58,16 +64,31 @@ export default function NewEditMatricula() {
 
   const schema = Yup.object().shape({
     start_date: Yup.date().required(),
-    plan_id: Yup.number()
-      .integer()
-      .required(),
-    student_id: Yup.number()
-      .integer()
-      .required(),
+    plan_id: Yup.number('Um plano precisa ser selecionado')
+      .integer('Um plano precisa ser selecionado')
+      .required('Um plano precisa ser selecionado'),
+    student_id: Yup.number('Um aluno precisa ser selecionado')
+      .integer('Um aluno precisa ser selecionado')
+      .required('Um aluno precisa ser selecionado'),
   });
 
   function handleBack() {
     history.push('/matriculas');
+  }
+
+  function handleChangePlan(event) {
+    const plano = planos.find(plan => plan.id == event.target.value);
+    setMatricula({ ...matricula, plan: plano });
+  }
+
+  function handleChangeStartDate(date) {
+    const dateFormated = new Date(date);
+
+    setMatricula({
+      ...matricula,
+      start_date: `${dateFormated.getUTCFullYear()}-${dateFormated.getUTCMonth() +
+        1}-${dateFormated.getUTCDate()}`,
+    });
   }
 
   const studentsAdapted = students.map(student => {
@@ -77,7 +98,7 @@ export default function NewEditMatricula() {
   return (
     <Container>
       <Form
-        initialData={currentMatricula}
+        initialData={matricula}
         onSubmit={handleSubmit}
         schema={schema}
         autoComplete="off"
@@ -102,7 +123,7 @@ export default function NewEditMatricula() {
           <Select
             name="student_id"
             options={studentsAdapted}
-            //value={currentMatricula.student_id}
+            // value={currentMatricula.student_id}
           />
 
           <div>
@@ -112,22 +133,35 @@ export default function NewEditMatricula() {
                 className="normal"
                 name="plan_id"
                 options={planos}
-                //value={currentMatricula.plan_id}
-                //value={plano}
-                //onChange={event => handleChangePlan(event)}
+                // value={currentMatricula.plan_id}
+                // value={plano}
+                onChange={event => handleChangePlan(event)}
               />
             </div>
             <div>
               <label>DATA DE INÍCIO</label>
-              <DatePicker name="start_date" />
+              <DatePicker
+                name="start_date"
+                handleChangeStartDate={handleChangeStartDate}
+              />
             </div>
             <div className="normal">
               <label>DATA DE TÉRMINO</label>
-              <Input name="end_date" className="disabled normal" disabled />
+              <input
+                name="end_date"
+                className="disabled normal"
+                value={endDate}
+                disabled
+              />
             </div>
             <div className="normal">
               <label>VALOR FINAL</label>
-              <Input name="price" className="disabled normal" disabled />
+              <input
+                name="price"
+                className="disabled normal"
+                value={price}
+                disabled
+              />
             </div>
           </div>
         </div>

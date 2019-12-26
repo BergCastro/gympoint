@@ -18,7 +18,7 @@ export const Container = styled.div`
       color: #444;
       font-size: 24px;
     }
-    div{
+    div {
       display: flex;
       flex-direction: row;
     }
@@ -28,15 +28,12 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
 
-
     div.content {
       display: flex;
       padding: 20px;
       flex-direction: column;
       background: #fff;
       margin-top: 24px;
-
-
 
       label {
         font-size: 14px;
@@ -47,7 +44,7 @@ export const Container = styled.div`
       input {
         background: #fff;
         border: 1px solid;
-        border-color: #ddd
+        border-color: #ddd;
         border-radius: 4px;
         height: 45px;
         width: 100%;
@@ -59,8 +56,6 @@ export const Container = styled.div`
         &::placeholder {
           color: #999;
         }
-
-
       }
       .disabled {
         background: #f5f5f5;
@@ -69,7 +64,7 @@ export const Container = styled.div`
       select {
         background: #fff;
         border: 1px solid;
-        border-color: #ddd
+        border-color: #ddd;
         border-radius: 4px;
         height: 45px;
         width: 100%;
@@ -81,11 +76,7 @@ export const Container = styled.div`
         &::placeholder {
           color: #999;
         }
-
-
       }
-
-
 
       span {
         color: #fb6f91;
