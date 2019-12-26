@@ -135,7 +135,7 @@ export default function NewEditMatricula() {
                 options={planos}
                 // value={currentMatricula.plan_id}
                 // value={plano}
-                onChange={event => handleChangePlan(event)}
+                onBlur={event => handleChangePlan(event)}
               />
             </div>
             <div>
