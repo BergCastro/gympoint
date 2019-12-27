@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
-import { Form, Input, FileInput } from '@rocketseat/unform';
-import { Link, useHistory } from 'react-router-dom';
-import { Container, ButtonSalvar, ButtonVoltar } from './styles';
+import React from 'react';
+import { Form, Input } from '@rocketseat/unform';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
+import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
 import {
   updateAlunoRequest,
   createAlunoRequest,
 } from '~/store/modules/aluno/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import * as Yup from 'yup';
-import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
+import { Container, ButtonSalvar, ButtonVoltar } from './styles';
 
 export default function NewEditAluno() {
   const currentAluno = useSelector(state => state.aluno.currentAluno);
@@ -46,8 +45,6 @@ export default function NewEditAluno() {
       .max(3, 'O valor máximo é 3')
       .required('Uma altura válida é requerida'),
   });
-
-  function handleProgress(progress, event) {}
 
   function handleBack() {
     history.push('/alunos');

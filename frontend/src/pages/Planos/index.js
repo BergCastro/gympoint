@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -29,14 +29,11 @@ export default function Planos() {
     }
 
     loadAllPlanos();
-  }, []);
+  }, [dispatch]);
 
   function handleNovoPlano() {
     dispatch(cleanCurrentPlano());
     history.push('/plano/novo');
-  }
-  function formatDate(date) {
-    return format(parseISO(date), "d 'de' MMMM', às' HH'h' ", { locale: pt });
   }
 
   function handleEditPlano(plano) {
@@ -64,7 +61,7 @@ export default function Planos() {
               <th>TÍTULO</th>
               <th>DURAÇÃO</th>
               <th style={{ textAlign: 'center' }}>VALOR p/ MÊS</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>

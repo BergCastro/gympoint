@@ -5,6 +5,7 @@ import user from './user/reducer';
 import aluno from './aluno/reducer';
 import plano from './plano/reducer';
 import matricula from './matricula/reducer';
+import pedido from './pedido/reducer';
 
 export default combineReducers({
   auth,
@@ -12,4 +13,5 @@ export default combineReducers({
   aluno,
   plano,
   matricula,
+  pedido,
 });

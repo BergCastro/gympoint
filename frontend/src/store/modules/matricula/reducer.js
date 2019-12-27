@@ -45,7 +45,7 @@ export default function matricula(state = INITIAL_STATE, action) {
       }
       case '@matricula/REMOVE_MATRICULA_SUCCESS': {
         draft.matriculas = draft.matriculas.filter(
-          matricula => matricula.id !== action.payload.id
+          m => m.id !== action.payload.id
         );
         break;
       }

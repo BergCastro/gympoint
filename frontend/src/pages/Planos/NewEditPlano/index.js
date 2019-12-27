@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
-import { Form, Input, FileInput } from '@rocketseat/unform';
-import { Link, useHistory } from 'react-router-dom';
-import { Container, ButtonSalvar, ButtonVoltar } from './styles';
+import React from 'react';
+import { Form, Input } from '@rocketseat/unform';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
+import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
 import {
   updatePlanoRequest,
   createPlanoRequest,
 } from '~/store/modules/plano/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import * as Yup from 'yup';
-import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
+import { Container, ButtonSalvar, ButtonVoltar } from './styles';
 
 export default function NewEditPlano() {
   const currentPlano = useSelector(state => state.plano.currentPlano);
@@ -37,8 +36,6 @@ export default function NewEditPlano() {
       'Um preço válido requerido'
     ),
   });
-
-  function handleProgress(progress, event) {}
 
   function handleBack() {
     history.push('/planos');

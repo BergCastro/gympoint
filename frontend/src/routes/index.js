@@ -10,6 +10,7 @@ import Planos from '../pages/Planos';
 import Matriculas from '../pages/Matriculas';
 import Detalhes from '../pages/Detalhes';
 import Profile from '../pages/Profile';
+import Pedidos from '../pages/PedidosAuxilio';
 import NewEditAluno from '../pages/Alunos/NewEditAluno';
 import NewEditPlano from '../pages/Planos/NewEditPlano';
 import NewEditMatricula from '../pages/Matriculas/NewEditMatricula';
@@ -20,6 +21,7 @@ export default function Routes() {
       <Route path="/" exact component={SignIn} />
       <Route path="/register" component={SignUp} />
 
+      <Route path="/pedidos" component={Pedidos} isPrivate />
       <Route path="/alunos" component={Alunos} isPrivate />
       <Route path="/aluno/:action" component={NewEditAluno} isPrivate />
       <Route path="/planos" component={Planos} isPrivate />

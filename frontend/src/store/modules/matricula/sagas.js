@@ -8,9 +8,9 @@ import {
   cleanCurrentMatricula,
   removeMatriculaSuccess,
 } from './actions';
+
 export function* updateMatricula({ payload }) {
   const matricula = payload.data;
-  console.log(matricula);
   try {
     const response = yield call(
       api.put,
@@ -18,7 +18,7 @@ export function* updateMatricula({ payload }) {
       matricula
     );
     toast.success('Matricula atualizada com sucesso!');
-    console.log(response.data);
+
     yield put(updateMatriculaSuccess(response.data));
   } catch (err) {
     toast.error('Erro ao atualizar o matricula, confira os dados!');
@@ -27,7 +27,6 @@ export function* updateMatricula({ payload }) {
 
 export function* createMatricula({ payload }) {
   const matricula = payload;
-  console.log(matricula);
 
   try {
     const response = yield call(api.post, 'enrollments', matricula);
@@ -42,10 +41,9 @@ export function* createMatricula({ payload }) {
 
 export function* removeMatricula({ payload }) {
   const matricula = payload;
-  console.log(matricula);
 
   try {
-    const response = yield call(api.delete, `enrollments/${matricula.id}`);
+    yield call(api.delete, `enrollments/${matricula.id}`);
     yield put(removeMatriculaSuccess(matricula));
     toast.success('Matricula removido com sucesso!');
     history.push('/matriculas');

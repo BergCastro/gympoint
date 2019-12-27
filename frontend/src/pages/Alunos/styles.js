@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-  max-width: 940px;
-  margin: 50px auto;
+  max-width: 1200px;
+  margin: 30px auto;
 
   display: flex;
   flex-direction: column;
@@ -72,40 +72,6 @@ export const Container = styled.div`
       a + a {
         margin-left: 20px;
       }
-    }
-  }
-`;
-
-export const Aluno = styled.li`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  border-radius: 4px;
-  background: #fff;
-  border: 0;
-  border-radius: 4px;
-  height: 62px;
-  color: #444;
-  margin: 0 0 10px;
-
-  strong {
-    color: #444;
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  div {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
-    color: #999;
-    font-size: 16px;
-    font-weight: normal;
-    span {
-      margin-right: 10px;
     }
   }
 `;

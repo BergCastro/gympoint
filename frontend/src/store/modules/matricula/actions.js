@@ -40,7 +40,7 @@ export function createMatriculaSuccess(matricula) {
   };
 }
 
-export function cleanCurrentMatricula(matricula) {
+export function cleanCurrentMatricula() {
   return {
     type: '@matricula/CLEAN_CURRENT_MATRICULA',
   };

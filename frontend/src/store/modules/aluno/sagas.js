@@ -8,13 +8,14 @@ import {
   cleanCurrentAluno,
   removeAlunoSuccess,
 } from './actions';
+
 export function* updateAluno({ payload }) {
   const aluno = payload.data;
-  console.log(aluno);
+
   try {
     const response = yield call(api.put, `students/${aluno.id}`, aluno);
     toast.success('Aluno atualizado com sucesso!');
-    console.log(response.data);
+
     yield put(updateAlunoSuccess(response.data));
   } catch (err) {
     toast.error('Erro ao atualizar o aluno, confira os dados!');
@@ -23,7 +24,6 @@ export function* updateAluno({ payload }) {
 
 export function* createAluno({ payload }) {
   const aluno = payload;
-  console.log(aluno);
 
   try {
     const response = yield call(api.post, 'students', aluno);
@@ -38,10 +38,9 @@ export function* createAluno({ payload }) {
 
 export function* removeAluno({ payload }) {
   const aluno = payload;
-  console.log(aluno);
 
   try {
-    const response = yield call(api.delete, `students/${aluno.id}`);
+    yield call(api.delete, `students/${aluno.id}`);
     yield put(removeAlunoSuccess(aluno));
     toast.success('Aluno removido com sucesso!');
     history.push('/alunos');

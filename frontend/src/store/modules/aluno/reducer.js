@@ -25,9 +25,7 @@ export default function aluno(state = INITIAL_STATE, action) {
         break;
       }
       case '@aluno/REMOVE_ALUNO_SUCCESS': {
-        draft.alunos = draft.alunos.filter(
-          aluno => aluno.id !== action.payload.id
-        );
+        draft.alunos = draft.alunos.filter(a => a.id !== action.payload.id);
         break;
       }
       case '@aluno/CLEAN_CURRENT_ALUNO': {

@@ -1,12 +1,10 @@
 import React, { useState, useMemo } from 'react';
-// import { useParams } from 'react-router';
-import { Form, Input, Select } from '@rocketseat/unform';
+import { Form, Select } from '@rocketseat/unform';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
-import { format, parseISO, addMonths, isValid, parse } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import { format, addMonths } from 'date-fns';
 import { Container, ButtonSalvar, ButtonVoltar } from './styles';
 import {
   updateMatriculaRequest,
@@ -27,19 +25,10 @@ export default function NewEditMatricula() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  function formatDate(date) {
-    if (isValid(date)) {
-      return format(date, 'dd/MM/yyyy');
-    }
-    const nowDate = new Date();
-    return `${nowDate.getDate()}/${nowDate.getMonth() +
-      1}/${nowDate.getFullYear()}`;
-  }
   const endDate = useMemo(() => {
-    console.log('endDate', matricula.start_date);
-    return addMonths(
-      parseISO(formatDate(matricula.start_date)),
-      matricula.plan.duration
+    return format(
+      addMonths(new Date(matricula.start_date), matricula.plan.duration),
+      'dd/MM/yyyy'
     );
   }, [matricula]);
 
@@ -49,7 +38,6 @@ export default function NewEditMatricula() {
   );
 
   function handleSubmit(matricula) {
-    console.log('matricula', matricula);
     if (action === 'editar') {
       dispatch(
         updateMatriculaRequest({
@@ -82,12 +70,13 @@ export default function NewEditMatricula() {
   }
 
   function handleChangeStartDate(date) {
-    const dateFormated = new Date(date);
+    // const dateFormated = new Date(date);
 
     setMatricula({
       ...matricula,
-      start_date: `${dateFormated.getUTCFullYear()}-${dateFormated.getUTCMonth() +
-        1}-${dateFormated.getUTCDate()}`,
+      // start_date: `${dateFormated.getUTCFullYear()}-${dateFormated.getUTCMonth() +
+      //   1}-${dateFormated.getUTCDate()}`,
+      start_date: new Date(date),
     });
   }
 
@@ -135,7 +124,7 @@ export default function NewEditMatricula() {
                 options={planos}
                 // value={currentMatricula.plan_id}
                 // value={plano}
-                onBlur={event => handleChangePlan(event)}
+                onChange={event => handleChangePlan(event)}
               />
             </div>
             <div>

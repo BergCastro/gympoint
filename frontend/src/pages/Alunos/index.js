@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { format, parseISO } from 'date-fns';
-import { utcToZonedTime } from 'date-fns-tz';
 import pt from 'date-fns/locale/pt';
-import {
-  MdKeyboardArrowRight,
-  MdControlPoint,
-  MdAdd,
-  MdEvent,
-  MdRoom,
-} from 'react-icons/md';
+import { MdAdd } from 'react-icons/md';
 
 import { Link, useHistory } from 'react-router-dom';
 import api from '~/services/api';
 
-import { Container, Aluno } from './styles';
+import { Container } from './styles';
 import {
   loadAlunos,
   loadCurrentAluno,
@@ -36,7 +29,7 @@ export default function Alunos() {
     }
 
     loadAllAlunos();
-  }, []);
+  }, [dispatch]);
 
   function handleNovoAluno() {
     dispatch(cleanCurrentAluno());
@@ -71,7 +64,7 @@ export default function Alunos() {
               <th>NOME</th>
               <th>EMAIL</th>
               <th style={{ textAlign: 'center' }}>IDADE</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>

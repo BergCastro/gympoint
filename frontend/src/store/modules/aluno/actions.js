@@ -40,7 +40,7 @@ export function createAlunoSuccess(aluno) {
   };
 }
 
-export function cleanCurrentAluno(aluno) {
+export function cleanCurrentAluno() {
   return {
     type: '@aluno/CLEAN_CURRENT_ALUNO',
   };
