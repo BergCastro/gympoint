@@ -65,27 +65,35 @@ export default function Planos() {
             </tr>
           </thead>
           <tbody>
-            {planos.map(plano => (
-              <tr key={plano.id}>
-                <td>{plano.title}</td>
-                <td>{plano.duration}</td>
-                <td style={{ textAlign: 'center' }}>{plano.price}</td>
-                <td style={{ textAlign: 'right' }}>
-                  <Link
-                    onClick={() => handleEditPlano(plano)}
-                    style={{ color: '#4D85EE' }}
-                  >
-                    editar
-                  </Link>
-                  <Link
-                    onClick={() => handleRemovePlano(plano)}
-                    style={{ color: '#DE3B3B' }}
-                  >
-                    apagar
-                  </Link>
+            {planos.length > 0 ? (
+              planos.map(plano => (
+                <tr key={plano.id}>
+                  <td>{plano.title}</td>
+                  <td>{plano.duration}</td>
+                  <td style={{ textAlign: 'center' }}>{plano.price}</td>
+                  <td style={{ textAlign: 'right' }}>
+                    <Link
+                      onClick={() => handleEditPlano(plano)}
+                      style={{ color: '#4D85EE' }}
+                    >
+                      editar
+                    </Link>
+                    <Link
+                      onClick={() => handleRemovePlano(plano)}
+                      style={{ color: '#DE3B3B' }}
+                    >
+                      apagar
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" style={{ textAlign: 'center' }}>
+                  Nenhum resultado foi encontrado
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

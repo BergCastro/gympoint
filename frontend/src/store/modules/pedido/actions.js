@@ -5,37 +5,9 @@ export function updatePedidoRequest(data) {
   };
 }
 
-export function removePedidoRequest(pedido) {
-  return {
-    type: '@pedido/REMOVE_PEDIDO_REQUEST',
-    payload: pedido,
-  };
-}
-
-export function removePedidoSuccess(pedido) {
-  return {
-    type: '@pedido/REMOVE_PEDIDO_SUCCESS',
-    payload: pedido,
-  };
-}
-
 export function updatePedidoSuccess(pedido) {
   return {
     type: '@pedido/UPDATE_PEDIDO_SUCCESS',
-    payload: { ...pedido },
-  };
-}
-
-export function createPedidoRequest(pedido) {
-  return {
-    type: '@pedido/CREATE_PEDIDO_REQUEST',
-    payload: { ...pedido },
-  };
-}
-
-export function createPedidoSuccess(pedido) {
-  return {
-    type: '@pedido/CREATE_PEDIDO_SUCCESS',
     payload: { ...pedido },
   };
 }

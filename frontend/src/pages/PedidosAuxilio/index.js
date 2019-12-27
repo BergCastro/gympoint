@@ -7,17 +7,15 @@ import { Link, useHistory } from 'react-router-dom';
 import api from '~/services/api';
 
 import { Container } from './styles';
-import {
-  loadPedidos,
-  loadCurrentPedido,
-  removePedidoRequest,
-} from '~/store/modules/pedido/actions';
+import { loadPedidos, loadCurrentPedido } from '~/store/modules/pedido/actions';
+
+import Modal from './Respostas';
 
 export default function Pedidos() {
-  // const [pedidos, setPedidos] = useState([]);
   const pedidos = useSelector(state => state.pedido.pedidos);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
   useEffect(() => {
     async function loadAllPedidos() {
@@ -27,49 +25,71 @@ export default function Pedidos() {
     }
 
     loadAllPedidos();
-  }, [dispatch]);
+  }, []);
 
-  function handleEditPedido(pedido) {
+  function handlePedido(pedido) {
     dispatch(loadCurrentPedido(pedido));
-    history.push('/pedido/editar');
+    setIsOpen(true);
   }
 
-  function handleRemovePedido(pedido) {
-    dispatch(removePedidoRequest(pedido));
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    //subtitle.style.color = '#f00';
+  }
+
+  function closeModal() {
+    setIsOpen(false);
   }
 
   return (
     <Container>
       <header>
         <strong>Pedidos de auxílio</strong>
+        <button onClick={openModal}> Teste Modal</button>
       </header>
       <div>
         <table>
           <thead>
             <tr>
               <th>ALUNO</th>
-
               <th />
             </tr>
           </thead>
           <tbody>
-            {pedidos.map(pedido => (
-              <tr key={pedido.id}>
-                <td>{pedido.student.name}</td>
+            {pedidos.length > 0 ? (
+              pedidos.map(pedido => (
+                <tr key={pedido.id}>
+                  <td>{pedido.student.name}</td>
 
-                <td style={{ textAlign: 'right' }}>
-                  <Link
-                    onClick={() => handleEditPedido(pedido)}
-                    style={{ color: '#4D85EE' }}
-                  >
-                    responder
-                  </Link>
+                  <td style={{ textAlign: 'right' }}>
+                    <Link
+                      onClick={() => handlePedido(pedido)}
+                      style={{ color: '#4D85EE' }}
+                    >
+                      responder
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="2" style={{ textAlign: 'center' }}>
+                  Nenhuma pergunta a ser respondida! : )
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
+      <Modal
+        open={modalIsOpen}
+        afterOpenModal={afterOpenModal}
+        closeModal={closeModal}
+      />
     </Container>
   );
 }
