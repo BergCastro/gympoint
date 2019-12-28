@@ -36,7 +36,8 @@ export default function Planos() {
   }
 
   function handleRemovePlano(plano) {
-    dispatch(removePlanoRequest(plano));
+    const confirmed = window.confirm('Está certo que quer remover o plano?');
+    if (confirmed) dispatch(removePlanoRequest(plano));
   }
 
   return (

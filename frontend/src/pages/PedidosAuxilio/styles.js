@@ -63,9 +63,6 @@ export const Container = styled.div`
         height: 40px;
         font-size: 16px;
         color: #666;
-        border-bottom: 0px solid #eee;
-      }
-      tr + tr {
         border-bottom: 1px solid #eee;
       }
 

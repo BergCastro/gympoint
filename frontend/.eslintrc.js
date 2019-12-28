@@ -29,6 +29,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-underscore-dangle': 'off',
     'jsx-a11y/label-has-for': 'off',
+    'no-alert': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
     camelcase: 'off',
     'no-console': ['error', { allow: ['tron'] }],

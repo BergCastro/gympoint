@@ -1,14 +1,14 @@
-<p align="center">
-<a href="https://rocketseat.com.br/bootcamp" alt="Bootcamp Rocketseat">
-  <img src="https://skylab.rocketseat.com.br/api/files/1560759053914.svg" height="120px"></a></p>
+<h1 align="center">
+  <img alt="Gympoint" title="Gympoint" src=".github/logo.png" width="200px" />
+</h1>
 
-# Rocketseat GoStack - Frontend MeetApp
+# Rocketseat GoStack - front-end Gympoint
 
 https://rocketseat.com.br/bootcamp
 
 ## Description
 
-React App Frontend MeetApp - Bootcamp GoStack.
+React App Frontend Gympoint - Bootcamp GoStack.
 
 ## Installing
 

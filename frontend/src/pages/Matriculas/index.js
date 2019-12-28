@@ -50,7 +50,10 @@ export default function Matriculas() {
   }
 
   function handleRemoveMatricula(matricula) {
-    dispatch(removeMatriculaRequest(matricula));
+    const confirmed = window.confirm(
+      'Está certo que quer remover a matrícula?'
+    );
+    if (confirmed) dispatch(removeMatriculaRequest(matricula));
   }
 
   return (

@@ -38,7 +38,8 @@ export default function Alunos() {
   }
 
   function handleRemoveAluno(aluno) {
-    dispatch(removeAlunoRequest(aluno));
+    const confirmed = window.confirm('Está certo que quer remover o aluno?');
+    if (confirmed) dispatch(removeAlunoRequest(aluno));
   }
 
   function handleChangeSearch(event) {
