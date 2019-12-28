@@ -27,15 +27,14 @@ export function* updateMatricula({ payload }) {
 
 export function* createMatricula({ payload }) {
   const matricula = payload;
-
   try {
     const response = yield call(api.post, 'enrollments', matricula);
-    toast.success('Matricula criado com sucesso!');
+    toast.success('Matricula realizada com sucesso!');
     history.push('/matriculas');
     yield put(createMatriculaSuccess(response.data));
     yield put(cleanCurrentMatricula());
   } catch (err) {
-    toast.error('Erro ao tentar criar o matricula, confira os dados!');
+    toast.error('Erro ao tentar criar a matricula, confira os dados!');
   }
 }
 
@@ -45,10 +44,10 @@ export function* removeMatricula({ payload }) {
   try {
     yield call(api.delete, `enrollments/${matricula.id}`);
     yield put(removeMatriculaSuccess(matricula));
-    toast.success('Matricula removido com sucesso!');
+    toast.success('Matricula removida com sucesso!');
     history.push('/matriculas');
   } catch (err) {
-    toast.error('Erro ao tentar remover o matricula, confira os dados!');
+    toast.error('Erro ao tentar remover a matricula, confira os dados!');
   }
 }
 

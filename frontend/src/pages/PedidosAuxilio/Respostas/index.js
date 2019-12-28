@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
 import { MdClear } from 'react-icons/md';
@@ -77,3 +78,8 @@ export default function Answer({ open, afterOpenModal, closeModal }) {
     </div>
   );
 }
+Answer.propTypes = {
+  open: PropTypes.bool.isRequired,
+  afterOpenModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
+};

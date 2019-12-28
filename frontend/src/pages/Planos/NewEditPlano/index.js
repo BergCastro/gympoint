@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,16 +21,26 @@ export default function NewEditPlano() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  function handleSubmit(plano) {
+  const [plano, setPlano] = useState(currentPlano);
+
+  const priceTotal = useMemo(() => {
+    const total = plano.price * plano.duration;
+    return total.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+  }, [plano]);
+
+  function handleSubmit(planoSubmited) {
     if (action === 'editar') {
       dispatch(
         updatePlanoRequest({
-          ...plano,
+          ...planoSubmited,
           id: currentPlano.id,
         })
       );
     } else {
-      dispatch(createPlanoRequest({ ...plano }));
+      dispatch(createPlanoRequest({ ...planoSubmited }));
     }
   }
 
@@ -46,10 +56,18 @@ export default function NewEditPlano() {
     history.push('/planos');
   }
 
+  function handleChangePrice(event) {
+    setPlano({ ...plano, price: event.target.value });
+  }
+
+  function handleChangeDuration(event) {
+    setPlano({ ...plano, duration: event.target.value });
+  }
+
   return (
     <Container>
       <Form
-        initialData={currentPlano}
+        initialData={plano}
         onSubmit={handleSubmit}
         schema={schema}
         autoComplete="off"
@@ -77,15 +95,27 @@ export default function NewEditPlano() {
             <InputContainer>
               <Input
                 name="duration"
-                label="DURAÇÂO"
+                label="DURAÇÃO(em meses)"
                 placeholder="Duração do Plano"
+                onChange={handleChangeDuration}
               />
             </InputContainer>
             <InputContainer>
-              <Input name="price" label="PREÇO" placeholder="Preço Mensal" />
+              <Input
+                name="price"
+                label="PREÇO MENSAL"
+                placeholder="Preço Mensal"
+                onChange={handleChangePrice}
+              />
             </InputContainer>
             <InputContainer>
-              <Input name="total_price" label="PREÇO TOTAL" />
+              <label>PREÇO TOTAL</label>
+              <input
+                className="disabled"
+                label="PREÇO TOTAL"
+                value={priceTotal}
+                disabled
+              />
             </InputContainer>
           </div>
         </div>

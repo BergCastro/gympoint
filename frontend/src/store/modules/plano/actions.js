@@ -40,7 +40,7 @@ export function createPlanoSuccess(plano) {
   };
 }
 
-export function cleanCurrentPlano(plano) {
+export function cleanCurrentPlano() {
   return {
     type: '@plano/CLEAN_CURRENT_PLANO',
   };

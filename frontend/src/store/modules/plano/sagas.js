@@ -8,13 +8,12 @@ import {
   cleanCurrentPlano,
   removePlanoSuccess,
 } from './actions';
+
 export function* updatePlano({ payload }) {
   const plano = payload.data;
-  console.log(plano);
   try {
     const response = yield call(api.put, `packages/${plano.id}`, plano);
     toast.success('Plano atualizado com sucesso!');
-    console.log(response.data);
     yield put(updatePlanoSuccess(response.data));
   } catch (err) {
     toast.error('Erro ao atualizar o plano, confira os dados!');
@@ -23,7 +22,6 @@ export function* updatePlano({ payload }) {
 
 export function* createPlano({ payload }) {
   const plano = payload;
-  console.log(plano);
 
   try {
     const response = yield call(api.post, 'packages', plano);
@@ -38,10 +36,9 @@ export function* createPlano({ payload }) {
 
 export function* removePlano({ payload }) {
   const plano = payload;
-  console.log(plano);
 
   try {
-    const response = yield call(api.delete, `packages/${plano.id}`);
+    yield call(api.delete, `packages/${plano.id}`);
     yield put(removePlanoSuccess(plano));
     toast.success('Plano removido com sucesso!');
     history.push('/planos');

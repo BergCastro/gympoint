@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdAdd } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
+import CurrencyFormat from 'react-currency-format';
 import api from '~/services/api';
 import { Container, ButtonAction } from './styles';
 import {
@@ -62,8 +63,20 @@ export default function Planos() {
               planos.map(plano => (
                 <tr key={plano.id}>
                   <td>{plano.title}</td>
-                  <td>{plano.duration}</td>
-                  <td style={{ textAlign: 'center' }}>{plano.price}</td>
+                  <td>
+                    {plano.duration} {plano.duration > 1 ? 'meses' : 'mês'}
+                  </td>
+                  <td style={{ textAlign: 'center' }}>
+                    <CurrencyFormat
+                      value={plano.price}
+                      displayType="text"
+                      thousandSeparator="."
+                      decimalSeparator=","
+                      decimalScale={2}
+                      fixedDecimalScale
+                      prefix="R$ "
+                    />
+                  </td>
                   <td style={{ textAlign: 'right' }}>
                     <ButtonAction
                       onClick={() => handleEditPlano(plano)}

@@ -40,7 +40,7 @@ export const Content = styled.div`
     input {
       background: #fff;
       border: 1px solid;
-      border-color: #ddd
+      border-color: #ddd;
       border-radius: 4px;
       height: 45px;
       padding: 0 15px;
@@ -63,7 +63,7 @@ export const Content = styled.div`
     button {
       margin: 5px 0 0;
       height: 45px;
-      background: #EE4D64;
+      background: #ee4d64;
       font-weight: bold;
       color: #fff;
       border: 0;

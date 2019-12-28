@@ -33,21 +33,24 @@ export default function NewEditMatricula() {
     );
   }, [matricula]);
 
-  const price = useMemo(
-    () => `R$ ${matricula.plan.price * matricula.plan.duration},00`,
-    [matricula]
-  );
+  const price = useMemo(() => {
+    const total = matricula.plan.price * matricula.plan.duration;
+    return total.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+  }, [matricula]);
 
-  function handleSubmit(matricula) {
+  function handleSubmit(matriculaSelected) {
     if (action === 'editar') {
       dispatch(
         updateMatriculaRequest({
-          ...matricula,
+          ...matriculaSelected,
           id: currentMatricula.id,
         })
       );
     } else {
-      dispatch(createMatriculaRequest({ ...matricula }));
+      dispatch(createMatriculaRequest({ ...matriculaSelected }));
     }
   }
 
@@ -66,17 +69,15 @@ export default function NewEditMatricula() {
   }
 
   function handleChangePlan(event) {
-    const plano = planos.find(plan => plan.id == event.target.value);
+    const plano = planos.find(
+      plan => plan.id === parseInt(event.target.value, 10)
+    );
     setMatricula({ ...matricula, plan: plano });
   }
 
   function handleChangeStartDate(date) {
-    // const dateFormated = new Date(date);
-
     setMatricula({
       ...matricula,
-      // start_date: `${dateFormated.getUTCFullYear()}-${dateFormated.getUTCMonth() +
-      //   1}-${dateFormated.getUTCDate()}`,
       start_date: new Date(date),
     });
   }

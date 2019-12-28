@@ -25,9 +25,7 @@ export default function plano(state = INITIAL_STATE, action) {
         break;
       }
       case '@plano/REMOVE_PLANO_SUCCESS': {
-        draft.planos = draft.planos.filter(
-          plano => plano.id !== action.payload.id
-        );
+        draft.planos = draft.planos.filter(p => p.id !== action.payload.id);
         break;
       }
       case '@plano/CLEAN_CURRENT_PLANO': {

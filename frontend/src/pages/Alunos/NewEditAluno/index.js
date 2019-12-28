@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
+import InputMask from 'react-input-mask';
 import {
   updateAlunoRequest,
   createAlunoRequest,
@@ -12,6 +13,9 @@ import { Container, ButtonSalvar, ButtonVoltar } from './styles';
 
 export default function NewEditAluno() {
   const currentAluno = useSelector(state => state.aluno.currentAluno);
+  const [peso, setPeso] = useState(currentAluno.peso || '');
+  const [altura, setAltura] = useState(currentAluno.altura || '');
+  const [idade, setIdade] = useState(currentAluno.idade || '');
   const { action } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -22,10 +26,13 @@ export default function NewEditAluno() {
         updateAlunoRequest({
           ...aluno,
           id: currentAluno.id,
+          peso,
+          altura,
+          idade,
         })
       );
     } else {
-      dispatch(createAlunoRequest({ ...aluno }));
+      dispatch(createAlunoRequest({ ...aluno, peso, altura, idade }));
     }
   }
 
@@ -34,20 +41,22 @@ export default function NewEditAluno() {
     email: Yup.string()
       .email('Um email válido é requerido')
       .required('Um email válido é requerido'),
-    idade: Yup.number('A idade precisa ser um número!').required(
-      'Uma data válida é requerida'
-    ),
-    peso: Yup.number('O peso precisa ser um número').required(
-      'Uma data válida é requerida'
-    ),
-    altura: Yup.number()
-      .positive('O valor precisa ser positivo')
-      .max(3, 'O valor máximo é 3')
-      .required('Uma altura válida é requerida'),
   });
 
   function handleBack() {
     history.push('/alunos');
+  }
+
+  function handleChangePeso(event) {
+    setPeso(event.target.value);
+  }
+
+  function handleChangeAltura(event) {
+    setAltura(event.target.value);
+  }
+
+  function handleChangeIdade(event) {
+    setIdade(event.target.value);
   }
 
   return (
@@ -79,15 +88,37 @@ export default function NewEditAluno() {
           <div>
             <div>
               <label>IDADE</label>
-              <Input name="idade" placeholder="Idade do aluno" />
+              <InputMask
+                mask="999"
+                name="idade"
+                maskChar=" "
+                value={idade}
+                onChange={handleChangeIdade}
+                placeholder="Idade do aluno"
+              />
             </div>
             <div>
               <label>PESO(kg)</label>
-              <Input name="peso" placeholder="Peso do aluno" />
+              <InputMask
+                mask="999"
+                maskChar=" "
+                name="peso"
+                value={peso}
+                onChange={handleChangePeso}
+                placeholder="Peso do aluno"
+              />
             </div>
             <div>
               <label>ALTURA(m)</label>
-              <Input name="altura" placeholder="Altura do aluno" />
+
+              <InputMask
+                name="altura"
+                mask="9.99"
+                maskChar=" "
+                value={altura}
+                onChange={handleChangeAltura}
+                placeholder="Altura do aluno"
+              />
             </div>
           </div>
         </div>

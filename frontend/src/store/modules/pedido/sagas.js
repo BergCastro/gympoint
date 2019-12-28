@@ -1,13 +1,10 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
-import history from '~/services/history';
-import { updatePedidoSuccess, cleanCurrentPedido } from './actions';
+import { updatePedidoSuccess } from './actions';
 
 export function* updatePedido({ payload }) {
   const pedido = payload.data;
-
-  console.log(pedido);
 
   try {
     const response = yield call(

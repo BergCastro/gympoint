@@ -24,7 +24,6 @@ export function* updateAluno({ payload }) {
 
 export function* createAluno({ payload }) {
   const aluno = payload;
-
   try {
     const response = yield call(api.post, 'students', aluno);
     toast.success('Aluno criado com sucesso!');

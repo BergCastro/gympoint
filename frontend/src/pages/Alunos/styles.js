@@ -22,7 +22,7 @@ export const Container = styled.div`
     input {
       background: #fff;
       border: 1px solid;
-      border-color: #ddd
+      border-color: #ddd;
       border-radius: 4px;
       height: 36px;
       width: 237px;
@@ -33,8 +33,6 @@ export const Container = styled.div`
       &::placeholder {
         color: #999;
       }
-
-
     }
 
     button {
@@ -61,8 +59,8 @@ export const Container = styled.div`
       }
     }
 
-    div{
-      background: #F2F2F2;
+    div {
+      background: #f2f2f2;
     }
   }
   div {

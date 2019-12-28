@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
 import api from '~/services/api';
 import { Container, ButtonAction } from './styles';
 import { loadPedidos, loadCurrentPedido } from '~/store/modules/pedido/actions';
@@ -10,7 +9,6 @@ import Modal from './Respostas';
 export default function Pedidos() {
   const pedidos = useSelector(state => state.pedido.pedidos);
   const dispatch = useDispatch();
-  const history = useHistory();
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   useEffect(() => {
