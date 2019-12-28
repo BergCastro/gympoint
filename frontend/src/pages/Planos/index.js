@@ -1,13 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { format, parseISO } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 import { MdAdd } from 'react-icons/md';
-
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import api from '~/services/api';
-
-import { Container } from './styles';
+import { Container, ButtonAction } from './styles';
 import {
   loadPlanos,
   loadCurrentPlano,
@@ -16,7 +12,6 @@ import {
 } from '~/store/modules/plano/actions';
 
 export default function Planos() {
-  // const [planos, setPlanos] = useState([]);
   const planos = useSelector(state => state.plano.planos);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -25,9 +20,7 @@ export default function Planos() {
     async function loadAllPlanos() {
       const response = await api.get('packages');
       dispatch(loadPlanos(response.data));
-      // setPlanos(response.data);
     }
-
     loadAllPlanos();
   }, [dispatch]);
 
@@ -72,18 +65,18 @@ export default function Planos() {
                   <td>{plano.duration}</td>
                   <td style={{ textAlign: 'center' }}>{plano.price}</td>
                   <td style={{ textAlign: 'right' }}>
-                    <Link
+                    <ButtonAction
                       onClick={() => handleEditPlano(plano)}
                       style={{ color: '#4D85EE' }}
                     >
                       editar
-                    </Link>
-                    <Link
+                    </ButtonAction>
+                    <ButtonAction
                       onClick={() => handleRemovePlano(plano)}
                       style={{ color: '#DE3B3B' }}
                     >
                       apagar
-                    </Link>
+                    </ButtonAction>
                   </td>
                 </tr>
               ))

@@ -8,7 +8,12 @@ import {
   updatePlanoRequest,
   createPlanoRequest,
 } from '~/store/modules/plano/actions';
-import { Container, ButtonSalvar, ButtonVoltar } from './styles';
+import {
+  Container,
+  InputContainer,
+  ButtonSalvar,
+  ButtonVoltar,
+} from './styles';
 
 export default function NewEditPlano() {
   const currentPlano = useSelector(state => state.plano.currentPlano);
@@ -62,23 +67,26 @@ export default function NewEditPlano() {
             </ButtonSalvar>
           </div>
         </header>
-        <div className="content">
-          <label>TÍTULO DO PLANO</label>
-          <Input name="title" placeholder="Nome do Plano" />
-
-          <div>
-            <div>
-              <label>DURAÇÃO</label>
-              <Input name="duration" placeholder="Duração do Plano" />
-            </div>
-            <div>
-              <label>PREÇO</label>
-              <Input name="price" placeholder="Preço Mensal" />
-            </div>
-            <div>
-              <label>PREÇO TOTAL</label>
-              <Input name="total_price" />
-            </div>
+        <div id="body-form">
+          <Input
+            name="title"
+            label="TÍTULO DO PLANO"
+            placeholder="Nome do Plano"
+          />
+          <div id="grid">
+            <InputContainer>
+              <Input
+                name="duration"
+                label="DURAÇÂO"
+                placeholder="Duração do Plano"
+              />
+            </InputContainer>
+            <InputContainer>
+              <Input name="price" label="PREÇO" placeholder="Preço Mensal" />
+            </InputContainer>
+            <InputContainer>
+              <Input name="total_price" label="PREÇO TOTAL" />
+            </InputContainer>
           </div>
         </div>
       </Form>

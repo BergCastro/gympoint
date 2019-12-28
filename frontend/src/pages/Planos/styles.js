@@ -69,43 +69,15 @@ export const Container = styled.div`
         border-bottom: 1px solid #eee;
       }
 
-      a + a {
+      button + button {
         margin-left: 20px;
       }
     }
   }
 `;
 
-export const Aluno = styled.li`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  border-radius: 4px;
-  background: #fff;
-  border: 0;
-  border-radius: 4px;
-  height: 62px;
-  color: #444;
-  margin: 0 0 10px;
-
-  strong {
-    color: #444;
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  div {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
-    color: #999;
-    font-size: 16px;
-    font-weight: normal;
-    span {
-      margin-right: 10px;
-    }
-  }
+export const ButtonAction = styled.button`
+  background: none;
+  border: none;
+  font-size: 15px;
 `;

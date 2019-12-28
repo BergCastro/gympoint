@@ -18,12 +18,11 @@ export const Container = styled.div`
       color: #444;
       font-size: 24px;
     }
-    div{
+    div {
       display: flex;
       flex-direction: row;
-    button {
-
-    }
+      button {
+      }
     }
   }
 
@@ -31,59 +30,53 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
 
-
-  div.content {
-    display: flex;
-    padding: 20px;
-    flex-direction: column;
-    background: #fff;
-    margin-top: 24px;
-
-
-
-    label {
-      font-size: 14px;
-      font-weight: bold;
-      color: #444;
-    }
-
-    input {
-      background: #fff;
-      border: 1px solid;
-      border-color: #ddd
-      border-radius: 4px;
-      height: 45px;
-      padding: 0 15px;
-      color: #444;
-      margin: 0 0 10px;
-      font-size: 16px;
-
-      &::placeholder {
-        color: #999;
-      }
-
-
-    }
-
-    span {
-      color: #fb6f91;
-      align-self: flex-start;
-      margin: 0 0 10px;
-      font-weight: bold;
-    }
-    div {
+    div#body-form {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      div {
-        display: flex;
+      padding: 20px;
       flex-direction: column;
+      background: #fff;
+      margin-top: 24px;
+
+      label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #444;
+      }
+
+      input {
+        background: #fff;
+        border: 1px solid;
+        border-color: #ddd;
+        border-radius: 4px;
+        height: 45px;
+        padding: 0 15px;
+        color: #444;
+        margin: 0 0 10px;
+        font-size: 16px;
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+
+      span {
+        color: #fb6f91;
+        align-self: flex-start;
+        margin: 0 0 10px;
+        font-weight: bold;
+      }
+      div#grid {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
       }
     }
   }
-  }
+`;
 
-
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ButtonSalvar = styled.button`

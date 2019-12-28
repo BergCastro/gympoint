@@ -59,9 +59,11 @@ export const Profile = styled.div`
       display: block;
       color: #666;
     }
-    a {
+    button {
       display: block;
       margin-top: 2px;
+      background: none;
+      border: none;
 
       color: #de3b3b;
     }

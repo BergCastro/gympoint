@@ -5,6 +5,7 @@ import { MdClear } from 'react-icons/md';
 import { Form, Input } from '@rocketseat/unform';
 import { Container, ButtonClose, ButtonAnswer, Header, Body } from './styles';
 import { updatePedidoRequest } from '~/store/modules/pedido/actions';
+
 const customStyles = {
   content: {
     top: '50%',

@@ -20,17 +20,19 @@ export default function Header() {
         <nav>
           <img src={logo} alt="Gympoint" />
           <img id="name" src={logoGympoint} alt="Gympoint" />
-          <Link to={'/alunos'}>ALUNOS</Link>
-          <Link to={'/planos'}>PLANOS</Link>
-          <Link to={'/matriculas'}>MATRÍCULAS</Link>
-          <Link to={'/pedidos'}>PEDIDOS DE AUXÍLIO</Link>
+          <Link to="/alunos">ALUNOS</Link>
+          <Link to="/planos">PLANOS</Link>
+          <Link to="/matriculas">MATRÍCULAS</Link>
+          <Link to="/pedidos">PEDIDOS DE AUXÍLIO</Link>
         </nav>
 
         <aside>
           <Profile>
             <div>
               <strong>{profile.name}</strong>
-              <Link onClick={() => handleLogout()}>sair do sistema</Link>
+              <button type="button" onClick={() => handleLogout()}>
+                sair do sistema
+              </button>
             </div>
           </Profile>
         </aside>

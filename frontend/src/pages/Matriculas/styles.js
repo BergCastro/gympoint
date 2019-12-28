@@ -69,9 +69,15 @@ export const Container = styled.div`
         border-bottom: 1px solid #eee;
       }
 
-      a + a {
+      button + button {
         margin-left: 20px;
       }
     }
   }
+`;
+
+export const ButtonAction = styled.button`
+  background: none;
+  border: none;
+  font-size: 15px;
 `;

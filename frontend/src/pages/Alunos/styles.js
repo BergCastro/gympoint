@@ -18,6 +18,25 @@ export const Container = styled.div`
       color: #444;
       font-size: 24px;
     }
+
+    input {
+      background: #fff;
+      border: 1px solid;
+      border-color: #ddd
+      border-radius: 4px;
+      height: 36px;
+      width: 237px;
+      padding: 0 10px;
+      color: #444;
+      font-size: 16px;
+
+      &::placeholder {
+        color: #999;
+      }
+
+
+    }
+
     button {
       display: flex;
       flex-direction: row;
@@ -31,6 +50,7 @@ export const Container = styled.div`
       border-radius: 4px;
       font-size: 14px;
       font-weight: bold;
+      margin-right: 16px;
 
       &:hover {
         background: ${darken(0.08, '#ee4d64')};
@@ -39,6 +59,10 @@ export const Container = styled.div`
       #btNovo {
         margin-right: 10px;
       }
+    }
+
+    div{
+      background: #F2F2F2;
     }
   }
   div {
@@ -69,9 +93,15 @@ export const Container = styled.div`
         border-bottom: 1px solid #eee;
       }
 
-      a + a {
+      button + button {
         margin-left: 20px;
       }
     }
   }
+`;
+
+export const ButtonAction = styled.button`
+  background: none;
+  border: none;
+  font-size: 15px;
 `;

@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { format, parseISO } from 'date-fns';
-import pt from 'date-fns/locale/pt';
-
 import { Link, useHistory } from 'react-router-dom';
 import api from '~/services/api';
-
-import { Container } from './styles';
+import { Container, ButtonAction } from './styles';
 import { loadPedidos, loadCurrentPedido } from '~/store/modules/pedido/actions';
 
 import Modal from './Respostas';
@@ -25,20 +21,16 @@ export default function Pedidos() {
     }
 
     loadAllPedidos();
-  }, []);
+  }, [dispatch]);
 
   function handlePedido(pedido) {
     dispatch(loadCurrentPedido(pedido));
     setIsOpen(true);
   }
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
-    //subtitle.style.color = '#f00';
+    // subtitle.style.color = '#f00';
   }
 
   function closeModal() {
@@ -49,7 +41,6 @@ export default function Pedidos() {
     <Container>
       <header>
         <strong>Pedidos de auxílio</strong>
-        <button onClick={openModal}> Teste Modal</button>
       </header>
       <div>
         <table>
@@ -66,12 +57,12 @@ export default function Pedidos() {
                   <td>{pedido.student.name}</td>
 
                   <td style={{ textAlign: 'right' }}>
-                    <Link
+                    <ButtonAction
                       onClick={() => handlePedido(pedido)}
                       style={{ color: '#4D85EE' }}
                     >
                       responder
-                    </Link>
+                    </ButtonAction>
                   </td>
                 </tr>
               ))

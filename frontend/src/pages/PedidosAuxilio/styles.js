@@ -109,3 +109,9 @@ export const Aluno = styled.li`
     }
   }
 `;
+
+export const ButtonAction = styled.button`
+  background: none;
+  border: none;
+  font-size: 15px;
+`;

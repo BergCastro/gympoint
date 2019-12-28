@@ -28,7 +28,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
 
-    div.content {
+    div#form-body {
       display: flex;
       padding: 20px;
       flex-direction: column;
@@ -46,7 +46,7 @@ export const Container = styled.div`
         border: 1px solid;
         border-color: #ddd;
         border-radius: 4px;
-        height: 45px;
+        /* height: 35px; */
         width: 100%;
         padding: 0 15px;
         color: #444;
@@ -84,18 +84,20 @@ export const Container = styled.div`
         margin: 0 0 10px;
         font-weight: bold;
       }
-      /* div {
+      div#grid {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        div {
+        margin-top: 10px;
+        input {
+          height: 45px;
+        }
+        div#input {
           display: flex;
           flex-direction: column;
-          input.normal {
           width: 198px;
-          }
         }
-      } */
+      }
     }
   }
 `;

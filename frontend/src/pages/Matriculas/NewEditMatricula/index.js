@@ -11,6 +11,7 @@ import {
   createMatriculaRequest,
 } from '~/store/modules/matricula/actions';
 import DatePicker from '~/components/ReactDatePicker';
+import ReactSelect from '~/components/ReactSelect';
 
 export default function NewEditMatricula() {
   const planos = useSelector(state => state.matricula.plans);
@@ -85,76 +86,75 @@ export default function NewEditMatricula() {
   });
 
   return (
-    <Container>
-      <Form
-        initialData={matricula}
-        onSubmit={handleSubmit}
-        schema={schema}
-        autoComplete="off"
-      >
-        <header>
-          <strong>
-            {action === 'novo' ? 'Cadastro' : 'Edição'} de matrícula
-          </strong>
-          <div>
-            <ButtonVoltar type="button" onClick={handleBack}>
-              <MdKeyboardArrowLeft id="btVoltar" size={20} color="#fff" />
-              VOLTAR
-            </ButtonVoltar>
-            <ButtonSalvar type="submit">
-              <MdDone id="btSalvar" size={20} color="#fff" />
-              SALVAR
-            </ButtonSalvar>
-          </div>
-        </header>
-        <div className="content">
-          <label>ALUNO</label>
-          <Select
-            name="student_id"
-            options={studentsAdapted}
-            // value={currentMatricula.student_id}
-          />
-
-          <div>
-            <div className="normal">
-              <label>PLANO</label>
-              <Select
-                className="normal"
-                name="plan_id"
-                options={planos}
-                // value={currentMatricula.plan_id}
-                // value={plano}
-                onChange={event => handleChangePlan(event)}
-              />
-            </div>
+    <>
+      <Container>
+        <Form
+          initialData={matricula}
+          onSubmit={handleSubmit}
+          schema={schema}
+          autoComplete="off"
+        >
+          <header>
+            <strong>
+              {action === 'novo' ? 'Cadastro' : 'Edição'} de matrícula
+            </strong>
             <div>
-              <label>DATA DE INÍCIO</label>
-              <DatePicker
-                name="start_date"
-                handleChangeStartDate={handleChangeStartDate}
-              />
+              <ButtonVoltar type="button" onClick={handleBack}>
+                <MdKeyboardArrowLeft id="btVoltar" size={20} color="#fff" />
+                VOLTAR
+              </ButtonVoltar>
+              <ButtonSalvar type="submit">
+                <MdDone id="btSalvar" size={20} color="#fff" />
+                SALVAR
+              </ButtonSalvar>
             </div>
-            <div className="normal">
-              <label>DATA DE TÉRMINO</label>
-              <input
-                name="end_date"
-                className="disabled normal"
-                value={endDate}
-                disabled
-              />
-            </div>
-            <div className="normal">
-              <label>VALOR FINAL</label>
-              <input
-                name="price"
-                className="disabled normal"
-                value={price}
-                disabled
-              />
+          </header>
+          <div id="form-body">
+            <ReactSelect
+              name="student_id"
+              label="ALUNO"
+              options={studentsAdapted}
+              placeholder="Buscar aluno"
+            />
+            <div id="grid">
+              <div id="input">
+                <Select
+                  name="plan_id"
+                  label="PLANO"
+                  options={planos}
+                  onChange={event => handleChangePlan(event)}
+                />
+              </div>
+              <div id="input">
+                <label>DATA DE INÍCIO</label>
+
+                <DatePicker
+                  name="start_date"
+                  handleChangeStartDate={handleChangeStartDate}
+                />
+              </div>
+              <div id="input">
+                <label>DATA DE TÉRMINO</label>
+                <input
+                  name="end_date"
+                  className="disabled normal"
+                  value={endDate}
+                  disabled
+                />
+              </div>
+              <div id="input">
+                <label>VALOR FINAL</label>
+                <input
+                  name="price"
+                  className="disabled normal"
+                  value={price}
+                  disabled
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </Form>
-    </Container>
+        </Form>
+      </Container>
+    </>
   );
 }

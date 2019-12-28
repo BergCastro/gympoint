@@ -4,11 +4,10 @@ import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { MdAdd } from 'react-icons/md';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
-
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import api from '~/services/api';
 
-import { Container } from './styles';
+import { Container, ButtonAction } from './styles';
 import {
   loadMatriculas,
   loadPlans,
@@ -19,7 +18,6 @@ import {
 } from '~/store/modules/matricula/actions';
 
 export default function Matriculas() {
-  // const [matriculas, setMatriculas] = useState([]);
   const matriculas = useSelector(state => state.matricula.matriculas);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -33,8 +31,6 @@ export default function Matriculas() {
       dispatch(loadMatriculas(response.data));
       dispatch(loadPlans(responsePlanos.data));
       dispatch(loadStudents(responseStudents.data));
-      // setMatriculas(response.data);
-      console.log('teste data', new Date());
     }
 
     loadAllMatriculas();
@@ -60,7 +56,7 @@ export default function Matriculas() {
   return (
     <Container>
       <header>
-        <strong>Gerenciando matriculas</strong>
+        <strong>Gerenciando matrículas</strong>
         <button type="button" onClick={handleNovoMatricula}>
           <MdAdd id="btNovo" size={20} color="#fff" />
           CADASTRAR
@@ -100,18 +96,18 @@ export default function Matriculas() {
                     />
                   </td>
                   <td style={{ textAlign: 'right' }}>
-                    <Link
+                    <ButtonAction
                       onClick={() => handleEditMatricula(matricula)}
                       style={{ color: '#4D85EE' }}
                     >
                       editar
-                    </Link>
-                    <Link
+                    </ButtonAction>
+                    <ButtonAction
                       onClick={() => handleRemoveMatricula(matricula)}
                       style={{ color: '#DE3B3B' }}
                     >
                       apagar
-                    </Link>
+                    </ButtonAction>
                   </td>
                 </tr>
               ))
