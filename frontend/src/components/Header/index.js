@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import logo from '~/assets/logo.svg';
 import logoGympoint from '~/assets/logo-gympoint.svg';
@@ -20,10 +20,18 @@ export default function Header() {
         <nav>
           <img src={logo} alt="Gympoint" />
           <img id="name" src={logoGympoint} alt="Gympoint" />
-          <Link to="/alunos">ALUNOS</Link>
-          <Link to="/planos">PLANOS</Link>
-          <Link to="/matriculas">MATRÍCULAS</Link>
-          <Link to="/pedidos">PEDIDOS DE AUXÍLIO</Link>
+          <NavLink to="/alunos" activeClassName="active">
+            ALUNOS
+          </NavLink>
+          <NavLink to="/planos" activeClassName="active">
+            PLANOS
+          </NavLink>
+          <NavLink to="/matriculas" activeClassName="active">
+            MATRÍCULAS
+          </NavLink>
+          <NavLink to="/pedidos" activeClassName="active">
+            PEDIDOS DE AUXÍLIO
+          </NavLink>
         </nav>
 
         <aside>

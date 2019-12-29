@@ -30,6 +30,10 @@ export const Content = styled.div`
       border-right: 1px solid #ddd;
     }
 
+    .active {
+      color: ${darken(0.2, '#999')};
+    }
+
     a {
       font-weight: bold;
       color: #999;
