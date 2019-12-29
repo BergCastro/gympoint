@@ -116,6 +116,7 @@ export default function NewEditMatricula() {
               label="ALUNO"
               options={studentsAdapted}
               placeholder="Buscar aluno"
+              multiple={false}
             />
             <div id="grid">
               <div id="input">
