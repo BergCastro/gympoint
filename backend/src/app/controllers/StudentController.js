@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
 import Student from '../models/Student';
-import File from '../models/File';
+import Checkin from '../models/Checkin';
 
 class StudentController {
   async index(req, res) {
@@ -10,13 +10,6 @@ class StudentController {
     const students = await Student.findAll({
       where: { name: { [Op.iLike]: `%${q}%` } },
       attributes: ['id', 'name', 'email', 'idade', 'peso', 'altura'],
-      include: [
-        {
-          model: File,
-          as: 'avatar',
-          attributes: ['name', 'path'],
-        },
-      ],
     });
 
     return res.json(students);
@@ -25,29 +18,14 @@ class StudentController {
   async show(req, res) {
     const student = await Student.findOne({
       where: { id: req.params.id },
-      attributes: [
-        'id',
-        'name',
-        'email',
-        'idade',
-        'peso',
-        'altura',
-        'avatar_id',
-      ],
-      include: [
-        {
-          model: File,
-          as: 'avatar',
-          attributes: ['id', 'name', 'path', 'url'],
-        },
-      ],
+      attributes: ['id', 'name', 'email', 'idade', 'peso', 'altura'],
     });
 
     if (!student) {
       return res.json({ error: 'This student no exists' });
     }
 
-    const { id, name, email, idade, peso, altura, avatar } = student;
+    const { id, name, email, idade, peso, altura } = student;
 
     return res.json({
       id,
@@ -56,7 +34,6 @@ class StudentController {
       idade,
       peso,
       altura,
-      avatar,
     });
   }
 
@@ -93,15 +70,9 @@ class StudentController {
       return res.status(400).json({ error: 'User already exists.' });
     }
 
-    const {
-      id,
-      name,
-      email,
-      idade,
-      peso,
-      altura,
-      avatar_id,
-    } = await Student.create(req.body);
+    const { id, name, email, idade, peso, altura } = await Student.create(
+      req.body
+    );
 
     return res.json({
       id,
@@ -110,7 +81,6 @@ class StudentController {
       idade,
       peso,
       altura,
-      avatar_id,
     });
   }
 

@@ -25,7 +25,7 @@ export default function Confirm({ navigation }) {
       date: time,
     });
 
-    navigation.navigate('Dashboard');
+    navigation.navigate('Checkins');
   }
 
   return (

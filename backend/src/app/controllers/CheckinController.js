@@ -58,16 +58,6 @@ class CheckinController {
 
   async store(req, res) {
     try {
-      const schema = Yup.object().shape({
-        student_id: Yup.number()
-          .integer()
-          .required(),
-      });
-
-      if (!(await schema.isValid(req.body))) {
-        return res.status(400).json({ error: 'Validation fails' });
-      }
-
       const sevenDaysAgo = subDays(new Date(), 7);
 
       const checkinsLastSevenDays = await Checkin.findAndCountAll({
@@ -83,9 +73,13 @@ class CheckinController {
         });
       }
 
-      const checkin = await Checkin.create(req.body);
+      const checkin = await Checkin.create({ student_id: req.params.id });
 
-      return res.status(201).json(checkin);
+      return res.status(201).json({
+        id: checkin.id,
+        student_id: checkin.student_id,
+        created_at: checkin.createdAt,
+      });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

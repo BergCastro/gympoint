@@ -5,28 +5,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import logo from '~/assets/logo.png';
 
 import Background from '~/components/Background';
-import { signInRequest } from '~/store/modules/auth/actions';
+import { signInRequest } from '~/store/modules/signin/actions';
 
-import {
-  Container,
-  Form,
-  FormInput,
-  SubmitButton,
-  SignLink,
-  SignLinkText,
-} from './styles';
+import { Container, Form, FormInput, SubmitButton } from './styles';
 
 export default function SignIn({ navigation }) {
   const dispatch = useDispatch();
   const passwordRef = useRef();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [id, setId] = useState('');
 
-  const loading = useSelector(state => state.auth.loading);
+  const loading = useSelector(state => state.student.loading);
 
   function handleSubmit() {
-    dispatch(signInRequest(email, password));
+    dispatch(signInRequest(id));
   }
 
   return (
@@ -42,18 +34,14 @@ export default function SignIn({ navigation }) {
             placeholder="Informe seu ID de cadastro"
             returnKeyType="next"
             onSubmitEditing={() => passwordRef.current.focus()}
-            value={email}
-            onChangeText={setEmail}
+            value={id}
+            onChangeText={setId}
           />
 
           <SubmitButton loading={loading} onPress={handleSubmit}>
             Entrar no sistema
           </SubmitButton>
         </Form>
-
-        <SignLink onPress={() => navigation.navigate('SignUp')}>
-          <SignLinkText>Criar conta gratuita</SignLinkText>
-        </SignLink>
       </Container>
     </Background>
   );

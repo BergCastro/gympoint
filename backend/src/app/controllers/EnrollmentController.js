@@ -131,7 +131,6 @@ class EnrollmentController {
         idade: student.idade,
         peso: student.peso,
         altura: student.altura,
-        avatar_id: student.avatar_id,
       },
       plan: {
         id: plan.id,

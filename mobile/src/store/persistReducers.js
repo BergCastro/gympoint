@@ -4,9 +4,9 @@ import { persistReducer } from 'redux-persist';
 export default reducers => {
   const persistedReducer = persistReducer(
     {
-      key: 'gobarber',
+      key: 'gympoint',
       storage: AsyncStorage,
-      whitelist: ['auth', 'user'],
+      whitelist: ['student', 'signin'],
     },
     reducers
   );
