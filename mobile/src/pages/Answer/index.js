@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
-
+import { formatRelative } from 'date-fns';
+import pt from 'date-fns/locale/pt';
+import { utcToZonedTime } from 'date-fns-tz';
 import logo from '../../assets/logo2.png';
 
 import Background from '~/components/Background';
@@ -14,10 +16,33 @@ import {
   HelpOrderContainer,
   HeaderContainer,
   Question,
+  HeaderText,
+  QuestionContainer,
+  Time,
+  HeaderTextAnswer,
+  AnswerText,
+  AnswerContainer,
 } from './styles';
 
 function Answer({ navigation }) {
   const helpOrder = navigation.getParam('helpOrder');
+
+  const d = new Date();
+  const signOffSet = Math.sign(d.getTimezoneOffset()) * -1;
+  const offset = `${signOffSet === -1 ? '-' : '+'}0${Math.abs(
+    d.getTimezoneOffset()
+  ) / 60}:00`;
+
+  const dateParsed = useMemo(() => {
+    return formatRelative(
+      utcToZonedTime(helpOrder.created_at, offset),
+      new Date(),
+      {
+        locale: pt,
+        addSuffix: true,
+      }
+    );
+  }, [helpOrder.created_at, offset]);
   // useEffect(() => {
   //   async function loadAnswer() {
   //     const response = await api.get(`students/${student.id}/help-orders`);
@@ -60,9 +85,17 @@ function Answer({ navigation }) {
       </ContainerImage>
       <Container>
         <HelpOrderContainer>
-          <HeaderContainer>
+          <QuestionContainer>
+            <HeaderContainer>
+              <HeaderText>PERGUNTA</HeaderText>
+              <Time>{dateParsed}</Time>
+            </HeaderContainer>
             <Question>{helpOrder.question}</Question>
-          </HeaderContainer>
+          </QuestionContainer>
+          <AnswerContainer>
+            <HeaderTextAnswer>RESPOSTA</HeaderTextAnswer>
+            <AnswerText>{helpOrder.answer}</AnswerText>
+          </AnswerContainer>
         </HelpOrderContainer>
       </Container>
     </Background>

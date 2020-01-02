@@ -24,18 +24,12 @@ export const HelpOrderContainer = styled.View`
 
   display: flex;
   flex-direction: column;
-  height: 150px;
 `;
 
 export const HeaderContainer = styled.View`
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
-`;
-
-export const Status = styled.View`
-  flex-direction: row;
 `;
 
 export const Time = styled.Text`
@@ -43,7 +37,40 @@ export const Time = styled.Text`
   font-size: 14px;
 `;
 
+export const QuestionContainer = styled.View`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const HeaderText = styled.Text`
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+`;
+
 export const Question = styled.Text`
+  margin-top: 16px;
+  font-size: 14px;
+  color: #666;
+  text-align: left;
+  line-height: 26px;
+`;
+
+export const AnswerContainer = styled.View`
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+`;
+
+export const HeaderTextAnswer = styled.Text`
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+`;
+
+export const AnswerText = styled.Text`
   margin-top: 16px;
   font-size: 14px;
   color: #666;
