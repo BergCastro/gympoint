@@ -10,8 +10,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import SignIn from './pages/SignIn';
 
-import SelectProvider from './pages/New/SelectProvider';
-import SelectDateTime from './pages/New/SelectDateTime';
+import HelpOrders from './pages/HelpOrders';
+import Answer from './pages/Answer';
+
 import Confirm from './pages/New/Confirm';
 
 import Checkins from './pages/Checkins';
@@ -26,11 +27,11 @@ export default (isSigned = false) =>
         App: createBottomTabNavigator(
           {
             Checkins,
-            New: {
+            HelpOrders: {
               screen: createStackNavigator(
                 {
-                  SelectProvider,
-                  SelectDateTime,
+                  HelpOrders,
+                  Answer,
                   Confirm,
                 },
                 {
@@ -44,9 +45,11 @@ export default (isSigned = false) =>
                 }
               ),
               navigationOptions: {
-                tabBarVisible: false,
+                tabBarVisible: true,
                 tabBarLabel: 'Pedir ajuda',
-                tabBarIcon: <Icon name="live-help" size={20} color="#999" />,
+                tabBarIcon: ({ tintColor }) => (
+                  <Icon name="live-help" size={20} color={tintColor} />
+                ),
               },
             },
             // Profile,

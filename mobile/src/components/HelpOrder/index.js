@@ -2,9 +2,17 @@ import React, { useMemo } from 'react';
 import { formatRelative } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { utcToZonedTime } from 'date-fns-tz';
-import { Container, Name, Time } from './styles';
+import {
+  Container,
+  StatusText,
+  Time,
+  HeaderContainer,
+  StatusIcon,
+  Status,
+  Question,
+} from './styles';
 
-export default function Checkin({ data, index }) {
+export default function Checkin({ data, navigation, handleShowHelpOrder }) {
   // função que retorna o offset no formato adequado ex.: -03:00
   const d = new Date();
   const signOffSet = Math.sign(d.getTimezoneOffset()) * -1;
@@ -22,9 +30,17 @@ export default function Checkin({ data, index }) {
   }, [data.created_at, offset]);
 
   return (
-    <Container>
-      <Name>Check-in #{index}</Name>
-      <Time>{dateParsed}</Time>
+    <Container onPress={() => handleShowHelpOrder(data)}>
+      <HeaderContainer>
+        <Status>
+          <StatusIcon name="check-circle" size={20} answered={data.answer} />
+          <StatusText answered={data.answer}>
+            {data.answer ? 'Respondido' : 'Sem resposta'}
+          </StatusText>
+        </Status>
+        <Time>{dateParsed}</Time>
+      </HeaderContainer>
+      <Question>{data.question}</Question>
     </Container>
   );
 }

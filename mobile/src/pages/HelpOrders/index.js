@@ -6,42 +6,43 @@ import sortBy from 'sort-by';
 import { Alert } from 'react-native';
 import logo from '../../assets/logo2.png';
 import api from '~/services/api';
+import HelpOrder from '~/components/HelpOrder';
 
 import Background from '~/components/Background';
-import Checkin from '~/components/Checkin';
 
 import {
   Container,
   List,
-  NewCheckinButton,
+  NewHelpOrderButton,
   ImageLogo,
   ContainerImage,
 } from './styles';
 
-function Checkins({ isFocused }) {
+function HelpOrders({ isFocused, navigation }) {
   const student = useSelector(state => state.signin.currentStudent);
-  const [checkins, setCheckins] = useState([]);
+  const [helporders, setHelpOrders] = useState([]);
 
   useEffect(() => {
-    async function loadCheckins() {
-      const response = await api.get(`students/${student.id}/checkins`);
+    async function loadHelpOrders() {
+      const response = await api.get(`students/${student.id}/help-orders`);
 
-      setCheckins(response.data.checkins);
+      setHelpOrders(response.data.helporders);
+      console.tron.log(response.data.helporders);
     }
     if (isFocused) {
-      loadCheckins();
+      loadHelpOrders();
     }
   }, [isFocused, student.id]);
 
-  async function handleNewCheckin() {
+  async function handleNewHelpOrder() {
     try {
-      const response = await api.post(`students/${student.id}/checkins`);
-      setCheckins([...checkins, response.data]);
+      const response = await api.post(`students/${student.id}/help-orders`);
+      setHelpOrders([...helporders, response.data]);
     } catch (error) {
       console.tron.log(error.response.status);
       if (error.response.status === 403) {
         Alert.alert(
-          'Checkin não permitido',
+          'HelpOrder não permitido',
           'Você já possui 5 chekins nos últimos 7 dias'
         );
       } else {
@@ -50,7 +51,11 @@ function Checkins({ isFocused }) {
     }
   }
 
-  const checkinsSorted = checkins.sort(sortBy('-created_at'));
+  const helpordersSorted = helporders.sort(sortBy('-created_at'));
+
+  function handleShowHelpOrder(helpOrder) {
+    navigation.navigate('Answer', { helpOrder });
+  }
 
   return (
     <Background>
@@ -58,16 +63,19 @@ function Checkins({ isFocused }) {
         <ImageLogo source={logo} />
       </ContainerImage>
       <Container>
-        <NewCheckinButton onPress={handleNewCheckin}>
-          Novo check-in
-        </NewCheckinButton>
+        <NewHelpOrderButton onPress={handleNewHelpOrder}>
+          Novo pedido de auxílio
+        </NewHelpOrderButton>
 
-        {checkins.length > 0 && (
+        {helporders.length > 0 && (
           <List
-            data={checkinsSorted}
+            data={helpordersSorted}
             keyExtractor={item => String(item.id)}
-            renderItem={({ index, item }) => (
-              <Checkin data={item} index={checkins.length - index} />
+            renderItem={({ item }) => (
+              <HelpOrder
+                handleShowHelpOrder={handleShowHelpOrder}
+                data={item}
+              />
             )}
           />
         )}
@@ -76,11 +84,11 @@ function Checkins({ isFocused }) {
   );
 }
 
-Checkins.navigationOptions = {
+HelpOrders.navigationOptions = {
   tabBarLabel: 'Check-ins',
   tabBarIcon: ({ tintColor }) => (
     <Icon name="edit-location" size={20} color={tintColor} />
   ),
 };
 
-export default withNavigationFocus(Checkins);
+export default withNavigationFocus(HelpOrders);
