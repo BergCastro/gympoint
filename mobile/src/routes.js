@@ -13,11 +13,11 @@ import SignIn from './pages/SignIn';
 import HelpOrders from './pages/HelpOrders';
 import Answer from './pages/Answer';
 
-import Confirm from './pages/New/Confirm';
+import NewHelpOrder from './pages/NewHelpOrder';
 
 import Checkins from './pages/Checkins';
 
-export default (isSigned = false) =>
+export default () =>
   createAppContainer(
     createSwitchNavigator(
       {
@@ -32,7 +32,7 @@ export default (isSigned = false) =>
                 {
                   HelpOrders,
                   Answer,
-                  Confirm,
+                  NewHelpOrder,
                 },
                 {
                   defaultNavigationOptions: {
@@ -68,7 +68,7 @@ export default (isSigned = false) =>
         ),
       },
       {
-        initialRouteName: isSigned ? 'App' : 'Sign',
+        initialRouteName: 'Sign',
       }
     )
   );

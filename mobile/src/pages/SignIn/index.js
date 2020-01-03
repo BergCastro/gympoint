@@ -18,7 +18,7 @@ export default function SignIn({ navigation }) {
   const loading = useSelector(state => state.student.loading);
 
   function handleSubmit() {
-    dispatch(signInRequest(id));
+    dispatch(signInRequest(id, navigation));
   }
 
   return (

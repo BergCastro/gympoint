@@ -7,13 +7,13 @@ import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
   try {
-    const { id } = payload;
+    const { id, navigation } = payload;
 
     const response = yield call(api.get, `students/${id}/checkins`);
 
     yield put(signInSuccess(response.data));
 
-    // history.push('/dashboard');
+    navigation.navigate('Checkins');
   } catch (err) {
     Alert.alert(
       'Falha na identificação do ID',

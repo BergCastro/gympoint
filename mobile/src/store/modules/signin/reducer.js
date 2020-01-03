@@ -14,7 +14,6 @@ export default function signin(state = INITIAL_STATE, action) {
         break;
       }
       case '@signin/SIGN_IN_SUCCESS': {
-        draft.signed = true;
         draft.loading = false;
         draft.currentStudent = action.payload.student;
         break;

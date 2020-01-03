@@ -35,20 +35,7 @@ function HelpOrders({ isFocused, navigation }) {
   }, [isFocused, student.id]);
 
   async function handleNewHelpOrder() {
-    try {
-      const response = await api.post(`students/${student.id}/help-orders`);
-      setHelpOrders([...helporders, response.data]);
-    } catch (error) {
-      console.tron.log(error.response.status);
-      if (error.response.status === 403) {
-        Alert.alert(
-          'HelpOrder não permitido',
-          'Você já possui 5 chekins nos últimos 7 dias'
-        );
-      } else {
-        Alert.alert('Ocorreu um erro', 'Tente novamente');
-      }
-    }
+    navigation.navigate('NewHelpOrder');
   }
 
   const helpordersSorted = helporders.sort(sortBy('-created_at'));

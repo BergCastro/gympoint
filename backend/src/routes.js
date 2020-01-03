@@ -38,7 +38,7 @@ routes.delete('/students/:id', StudentController.delete);
 routes.get('/students', StudentController.index);
 
 // HelpOrders
-// routes.get('/help-orders', HelpOrderController.index);
+routes.get('/help-orders', HelpOrderController.index);
 // routes.get('/help-orders/:id', HelpOrderController.show);
 
 // routes.put('/students/:id/help-orders', StudentHelpOrderController.update);
