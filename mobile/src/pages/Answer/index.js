@@ -1,18 +1,16 @@
 import React, { useMemo } from 'react';
-
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
 import { formatRelative } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { utcToZonedTime } from 'date-fns-tz';
-import logo from '../../assets/logo2.png';
 
 import Background from '~/components/Background';
+import HeaderLogo from '~/components/HeaderLogo';
 
 import {
   Container,
-  ImageLogo,
-  ContainerImage,
   HelpOrderContainer,
   HeaderContainer,
   Question,
@@ -43,46 +41,10 @@ function Answer({ navigation }) {
       }
     );
   }, [helpOrder.created_at, offset]);
-  // useEffect(() => {
-  //   async function loadAnswer() {
-  //     const response = await api.get(`students/${student.id}/help-orders`);
-
-  //     setAnswer(response.data.answer);
-  //     console.tron.log(response.data.answer);
-  //   }
-  //   if (isFocused) {
-  //     loadAnswer();
-  //   }
-  // }, [isFocused, student.id]);
-
-  // async function handleNewHelpOrder() {
-  //   try {
-  //     const response = await api.post(`students/${student.id}/help-orders`);
-  //     setAnswer([...answer, response.data]);
-  //   } catch (error) {
-  //     console.tron.log(error.response.status);
-  //     if (error.response.status === 403) {
-  //       Alert.alert(
-  //         'HelpOrder não permitido',
-  //         'Você já possui 5 chekins nos últimos 7 dias'
-  //       );
-  //     } else {
-  //       Alert.alert('Ocorreu um erro', 'Tente novamente');
-  //     }
-  //   }
-  // }
-
-  // const answerSorted = answer.sort(sortBy('-created_at'));
-
-  // function handleShowHelpOrder(helpOrder) {
-  //   navigation.navigate('Answer', { helpOrder });
-  // }
 
   return (
     <Background>
-      <ContainerImage>
-        <ImageLogo source={logo} />
-      </ContainerImage>
+      <HeaderLogo />
       <Container>
         <HelpOrderContainer>
           <QuestionContainer>
@@ -102,11 +64,24 @@ function Answer({ navigation }) {
   );
 }
 
+function NavIcon({ tintColor }) {
+  return <Icon name="edit-location" size={20} color={tintColor} />;
+}
+
 Answer.navigationOptions = {
   tabBarLabel: 'Check-ins',
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="edit-location" size={20} color={tintColor} />
-  ),
+  tabBarIcon: NavIcon,
 };
 
 export default withNavigationFocus(Answer);
+
+Answer.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+    getParam: PropTypes.func,
+  }).isRequired,
+};
+
+NavIcon.propTypes = {
+  tintColor: PropTypes.string.isRequired,
+};

@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
 import sortBy from 'sort-by';
 import { Alert } from 'react-native';
-import logo from '../../assets/logo2.png';
 import api from '~/services/api';
 
 import Background from '~/components/Background';
 import Checkin from '~/components/Checkin';
+import HeaderLogo from '~/components/HeaderLogo';
 
-import {
-  Container,
-  List,
-  NewCheckinButton,
-  ImageLogo,
-  ContainerImage,
-} from './styles';
+import { Container, List, NewCheckinButton } from './styles';
 
 function Checkins({ isFocused }) {
   const student = useSelector(state => state.signin.currentStudent);
@@ -42,7 +37,7 @@ function Checkins({ isFocused }) {
       if (error.response.status === 403) {
         Alert.alert(
           'Checkin não permitido',
-          'Você já possui 5 chekins nos últimos 7 dias'
+          'Você já possui 5 checkins nos últimos 7 dias'
         );
       } else {
         Alert.alert('Ocorreu um erro', 'Tente novamente');
@@ -54,9 +49,7 @@ function Checkins({ isFocused }) {
 
   return (
     <Background>
-      <ContainerImage>
-        <ImageLogo source={logo} />
-      </ContainerImage>
+      <HeaderLogo />
       <Container>
         <NewCheckinButton onPress={handleNewCheckin}>
           Novo check-in
@@ -76,11 +69,21 @@ function Checkins({ isFocused }) {
   );
 }
 
+function NavIcon({ tintColor }) {
+  return <Icon name="edit-location" size={20} color={tintColor} />;
+}
+
 Checkins.navigationOptions = {
   tabBarLabel: 'Check-ins',
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="edit-location" size={20} color={tintColor} />
-  ),
+  tabBarIcon: NavIcon,
+};
+
+Checkins.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
+};
+
+NavIcon.propTypes = {
+  tintColor: PropTypes.string.isRequired,
 };
 
 export default withNavigationFocus(Checkins);

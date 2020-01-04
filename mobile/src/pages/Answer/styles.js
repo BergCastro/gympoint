@@ -1,20 +1,10 @@
 import styled from 'styled-components/native';
-import Button from '~/components/Button';
 
 export const Container = styled.SafeAreaView`
   background: #f2f2f2;
   padding: 20px;
   flex: 1;
 `;
-
-export const ContainerImage = styled.View`
-  align-self: center;
-  background: #fff;
-  height: 40px;
-  padding: 10px;
-`;
-
-export const ImageLogo = styled.Image``;
 
 export const HelpOrderContainer = styled.View`
   margin-bottom: 10px;

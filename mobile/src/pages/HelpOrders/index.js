@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
 import sortBy from 'sort-by';
-import { Alert } from 'react-native';
-import logo from '../../assets/logo2.png';
 import api from '~/services/api';
 import HelpOrder from '~/components/HelpOrder';
 
 import Background from '~/components/Background';
+import HeaderLogo from '~/components/HeaderLogo';
 
-import {
-  Container,
-  List,
-  NewHelpOrderButton,
-  ImageLogo,
-  ContainerImage,
-} from './styles';
+import { Container, List, NewHelpOrderButton } from './styles';
 
 function HelpOrders({ isFocused, navigation }) {
   const student = useSelector(state => state.signin.currentStudent);
   const [helporders, setHelpOrders] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  async function loadHelpOrders() {
+    const response = await api.get(`students/${student.id}/help-orders`);
+
+    setHelpOrders(response.data.helporders);
+    console.tron.log(response.data.helporders);
+    setRefreshing(false);
+  }
+
+  function refreshList() {
+    setRefreshing(true);
+    loadHelpOrders();
+  }
 
   useEffect(() => {
-    async function loadHelpOrders() {
-      const response = await api.get(`students/${student.id}/help-orders`);
-
-      setHelpOrders(response.data.helporders);
-      console.tron.log(response.data.helporders);
-    }
     if (isFocused) {
       loadHelpOrders();
     }
@@ -46,9 +48,7 @@ function HelpOrders({ isFocused, navigation }) {
 
   return (
     <Background>
-      <ContainerImage>
-        <ImageLogo source={logo} />
-      </ContainerImage>
+      <HeaderLogo />
       <Container>
         <NewHelpOrderButton onPress={handleNewHelpOrder}>
           Novo pedido de auxílio
@@ -58,6 +58,8 @@ function HelpOrders({ isFocused, navigation }) {
           <List
             data={helpordersSorted}
             keyExtractor={item => String(item.id)}
+            onRefresh={refreshList}
+            refreshing={refreshing}
             renderItem={({ item }) => (
               <HelpOrder
                 handleShowHelpOrder={handleShowHelpOrder}
@@ -71,11 +73,25 @@ function HelpOrders({ isFocused, navigation }) {
   );
 }
 
+function NavIcon({ tintColor }) {
+  return <Icon name="edit-location" size={20} color={tintColor} />;
+}
+
 HelpOrders.navigationOptions = {
   tabBarLabel: 'Check-ins',
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="edit-location" size={20} color={tintColor} />
-  ),
+  tabBarIcon: NavIcon,
 };
 
 export default withNavigationFocus(HelpOrders);
+
+HelpOrders.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+    getParam: PropTypes.func,
+  }).isRequired,
+  isFocused: PropTypes.bool.isRequired,
+};
+
+NavIcon.propTypes = {
+  tintColor: PropTypes.string.isRequired,
+};

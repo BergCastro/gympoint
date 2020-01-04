@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { formatRelative } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { utcToZonedTime } from 'date-fns-tz';
@@ -28,3 +29,10 @@ export default function Checkin({ data, index }) {
     </Container>
   );
 }
+
+Checkin.propTypes = {
+  data: PropTypes.shape({
+    created_at: PropTypes.string.isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+};

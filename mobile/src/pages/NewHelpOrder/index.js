@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
 import { Alert } from 'react-native';
-import logo from '../../assets/logo2.png';
 import api from '~/services/api';
 import Button from '~/components/Button';
 
 import Background from '~/components/Background';
+import HeaderLogo from '~/components/HeaderLogo';
 
-import { Container, ImageLogo, ContainerImage, Question } from './styles';
+import { Container, Question } from './styles';
 
 function NewHelpOrder({ navigation }) {
   const student = useSelector(state => state.signin.currentStudent);
@@ -17,9 +18,10 @@ function NewHelpOrder({ navigation }) {
 
   async function handleSubmit() {
     try {
-      const response = await api.post(`students/${student.id}/help-orders`, {
+      await api.post(`students/${student.id}/help-orders`, {
         question,
       });
+      Alert.alert('Sucesso!', 'Pedido enviado com sucesso.');
       navigation.navigate('HelpOrders');
     } catch (error) {
       console.tron.log(error.response.status);
@@ -28,9 +30,7 @@ function NewHelpOrder({ navigation }) {
 
   return (
     <Background>
-      <ContainerImage>
-        <ImageLogo source={logo} />
-      </ContainerImage>
+      <HeaderLogo />
       <Container>
         <Container>
           <Question
@@ -48,11 +48,23 @@ function NewHelpOrder({ navigation }) {
   );
 }
 
+function NavIcon({ tintColor }) {
+  return <Icon name="edit-location" size={20} color={tintColor} />;
+}
+
 NewHelpOrder.navigationOptions = {
   tabBarLabel: 'Check-ins',
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="edit-location" size={20} color={tintColor} />
-  ),
+  tabBarIcon: NavIcon,
 };
 
 export default withNavigationFocus(NewHelpOrder);
+
+NewHelpOrder.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+NavIcon.propTypes = {
+  tintColor: PropTypes.string.isRequired,
+};
