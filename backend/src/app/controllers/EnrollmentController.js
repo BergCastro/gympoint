@@ -2,6 +2,8 @@ import * as Yup from 'yup';
 import Enrollment from '../models/Enrollment';
 import Student from '../models/Student';
 import Plan from '../models/Plan';
+import EnrollmentMail from '../jobs/EnrollmentMail';
+import Queue from '../../lib/Queue';
 
 class EnrollmentController {
   async index(req, res) {
@@ -72,24 +74,31 @@ class EnrollmentController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const {
-      id,
-      student_id,
-      plan_id,
-      start_date,
+    // const {
+    //   id,
+    //   student_id,
+    //   plan_id,
+    //   start_date,
+    //   end_date,
+    //   price,
+    //   enrollment_enable,
+    // } = await Enrollment.create(req.body);
+    const enrollment = await Enrollment.create(req.body);
+    // console.log(enrollment.response);
+
+    const { student_id, plan_id, end_date, price } = enrollment;
+
+    const student = await Student.findByPk(student_id);
+    const plan = await Plan.findByPk(plan_id);
+    console.log('plano', plan);
+    await Queue.add(EnrollmentMail.key, {
+      student,
+      plan,
       end_date,
       price,
-      enrollment_enable,
-    } = await Enrollment.create(req.body);
-    return res.json({
-      id,
-      student_id,
-      plan_id,
-      start_date,
-      end_date,
-      price,
-      enrollment_enable,
     });
+
+    return res.json(enrollment);
   }
 
   async update(req, res) {
