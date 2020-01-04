@@ -13,7 +13,6 @@ export default function Checkin({ data, index }) {
     d.getTimezoneOffset()
   ) / 60}:00`;
 
-  // console.tron.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
   // utcToZonedTime não está funcionando com timezone devido problemas com Intl
   const dateParsed = useMemo(() => {
     return formatRelative(utcToZonedTime(data.created_at, offset), new Date(), {

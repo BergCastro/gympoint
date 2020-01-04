@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { formatRelative } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { utcToZonedTime } from 'date-fns-tz';
@@ -12,7 +13,7 @@ import {
   Question,
 } from './styles';
 
-export default function Checkin({ data, navigation, handleShowHelpOrder }) {
+export default function HelpOrder({ data, handleShowHelpOrder }) {
   // função que retorna o offset no formato adequado ex.: -03:00
   const d = new Date();
   const signOffSet = Math.sign(d.getTimezoneOffset()) * -1;
@@ -44,3 +45,12 @@ export default function Checkin({ data, navigation, handleShowHelpOrder }) {
     </Container>
   );
 }
+
+HelpOrder.propTypes = {
+  data: PropTypes.shape({
+    created_at: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired,
+    question: PropTypes.string.isRequired,
+  }).isRequired,
+  handleShowHelpOrder: PropTypes.func.isRequired,
+};
