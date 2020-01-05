@@ -1,55 +1,66 @@
 <h1 align="center">
-    <img alt="GoStack" src="https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/bootcamp-header.png" width="200px" />
+  <img alt="Gympoint" title="Gympoint" src="../.github/logo.png" width="200px" />
 </h1>
 
-<h3 align="center">
-  GoBarber mobile
-</h3>
+# Rocketseat GoStack - mobile Gympoint
 
-<p align="center">Código do décimo módulo do Bootcamp GoStack 🎓</p>
+https://rocketseat.com.br/bootcamp
 
-<p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/rocketseat/bootcamp-gostack-10?color=%2304D361">
+## Description
 
-  <a href="https://rocketseat.com.br">
-    <img alt="Made by Rocketseat" src="https://img.shields.io/badge/made%20by-Rocketseat-%2304D361">
-  </a>
+React Native Aplication for the Rocketseat Bootcamp GoStack (Gympoint).
 
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
+## Features
 
-  <a href="https://github.com/Rocketseat/bootcamp-gostack-10/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/rocketseat/bootcamp-gostack-10?style=social">
-  </a>
-</p>
+- JWT Authentication
+- Pagination
+- Database Postgres
+- Queue with Redis for sendind emails.
+- Sequelize ORM
+- Mail Trap
 
-<p align="center">
-  <a href="#-instalacao-e-execução">Instalação e execução</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-como-contribuir">Como contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#memo-licença">Licença</a>
-</p>
+## Installing
 
-## 🚀 Instalação e execução
+### Create docker container Postgres
 
-_ps: Antes de executar lembre de iniciar o backend desenvolvido nos módulos 2 e 3_
+`docker run --name postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres`
 
-1. Faça um clone desse repositório;
-2. Entre na pasta rodando `cd bootcamp-gostack-10`;
-3. Rode `yarn` para instalar as dependências;
-4. Rode `yarn react-native run-ios` ou `yarn react-native run-android` dependendo do SO.
+### Create docker container Redis
 
-## 🤔 Como contribuir
+`docker run --name redis -p 6379:6379 -d -t redis:alpine`
 
-- Faça um fork desse repositório;
-- Cria uma branch com a sua feature: `git checkout -b minha-feature`;
-- Faça commit das suas alterações: `git commit -m 'feat: Minha nova feature'`;
-- Faça push para a sua branch: `git push origin minha-feature`.
+### Installing dependencies
 
-Depois que o merge da sua pull request for feito, você pode deletar a sua branch.
+```
+cd backend
+yarn
+```
 
-## :memo: Licença
+### Creating Database
 
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
+Create Database "gympoint"
 
----
+### Running migrations Database
 
-Feito com ♥ by Rocketseat :wave: [Entre na nossa comunidade!](https://discordapp.com/invite/gCRAFhc)
+`yarn sequelize db:migrate`
+
+### Running Seed
+
+`yarn sequelize db:seed:all`
+
+### Setup .env file
+
+Rename the file `.env.example` to `.env` !
+Edit the file with your informations!
+
+## Running
+
+`yarn dev`
+
+## Author
+
+- Lindemberg Nunes de Castro
+
+## License
+
+MIT

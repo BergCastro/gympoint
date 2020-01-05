@@ -2,13 +2,21 @@
   <img alt="Gympoint" title="Gympoint" src="../.github/logo.png" width="200px" />
 </h1>
 
-# Rocketseat GoStack - back-end Gympoint
+# Rocketseat GoStack - Gympoint
 
 https://rocketseat.com.br/bootcamp
 
 ## Description
 
-Node API aplication for the Rocketseat Bootcamp GoStack Gympoint application.
+Back-end, front-end and mobile aplication for the Rocketseat Bootcamp GoStack (Gympoint).
+
+## Prerequisites
+
+- Yarn
+- NodeJS
+- Docker containers
+- Redis
+- PostgreSQL
 
 ## Features
 
@@ -19,7 +27,9 @@ Node API aplication for the Rocketseat Bootcamp GoStack Gympoint application.
 - Sequelize ORM
 - Mail Trap
 
-## Installing
+## Instructions
+
+<a href="./backend">Instructions to BACK-END</a>
 
 ### Create docker container Postgres
 
