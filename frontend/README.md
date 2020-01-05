@@ -19,7 +19,13 @@ yarn
 
 ## Running
 
+You must have the server running!
 `yarn start`
+
+## Credentials
+
+user: admin@gympoint.com
+password: 123456
 
 ## Author
 

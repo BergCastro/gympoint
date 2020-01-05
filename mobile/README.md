@@ -9,53 +9,40 @@ https://rocketseat.com.br/bootcamp
 ## Description
 
 React Native Aplication for the Rocketseat Bootcamp GoStack (Gympoint).
-
-## Features
-
-- JWT Authentication
-- Pagination
-- Database Postgres
-- Queue with Redis for sendind emails.
-- Sequelize ORM
-- Mail Trap
+This mobile application was built for the Android platform.
 
 ## Installing
-
-### Create docker container Postgres
-
-`docker run --name postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres`
-
-### Create docker container Redis
-
-`docker run --name redis -p 6379:6379 -d -t redis:alpine`
-
-### Installing dependencies
 
 ```
 cd backend
 yarn
 ```
 
-### Creating Database
+## Change address server
 
-Create Database "gympoint"
+`services/api.js`
 
-### Running migrations Database
-
-`yarn sequelize db:migrate`
-
-### Running Seed
-
-`yarn sequelize db:seed:all`
-
-### Setup .env file
-
-Rename the file `.env.example` to `.env` !
-Edit the file with your informations!
+Enter the IP of your machine.
 
 ## Running
 
-`yarn dev`
+You must have the server running!
+
+- Console 1
+  `react-native start`
+
+- Console 2
+  `react-native run-android`
+
+## Setting the ports
+
+### Port server :3333
+
+adb reverse tcp:3333 tcp:3333
+
+### Port Reactotron :9090
+
+adb reverse tcp:9090 tcp:9090
 
 ## Author
 

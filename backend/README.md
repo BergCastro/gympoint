@@ -55,7 +55,11 @@ Edit the file with your informations!
 
 ## Running
 
-`yarn dev`
+- Console 1
+  `yarn dev`
+
+- Console 2
+  `yarn queue`
 
 ## Author
 
