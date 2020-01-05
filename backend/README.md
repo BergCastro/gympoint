@@ -8,7 +8,7 @@ https://rocketseat.com.br/bootcamp
 
 ## Description
 
-Node API aplication for the Rocketseat Bootcamp GoStack Gympoint application.
+Node API application for the Rocketseat Bootcamp GoStack Gympoint application.
 
 ## Features
 
