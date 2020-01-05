@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Gympoint" title="Gympoint" src="../.github/logo.png" width="200px" />
+  <img alt="Gympoint" title="Gympoint" src="./.github/logo.png" width="200px" />
 </h1>
 
 # Rocketseat GoStack - Gympoint
@@ -18,18 +18,11 @@ Back-end, front-end and mobile aplication for the Rocketseat Bootcamp GoStack (G
 - Redis
 - PostgreSQL
 
-## Features
-
-- JWT Authentication
-- Pagination
-- Database Postgres
-- Queue with Redis for sendind emails.
-- Sequelize ORM
-- Mail Trap
-
 ## Instructions
 
-<a href="./backend">Instructions to BACK-END</a>
+- <a href="./backend">Instructions to Back-end</a>
+- <a href="./frontend">Instructions to Front-end</a>
+- <a href="./mobile">Instructions to Mobile</a>
 
 ### Create docker container Postgres
 
