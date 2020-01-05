@@ -8,7 +8,7 @@ https://rocketseat.com.br/bootcamp
 
 ## Description
 
-React Native Aplication for the Rocketseat Bootcamp GoStack (Gympoint).
+React Native Application for the Rocketseat Bootcamp GoStack (Gympoint).
 This mobile application was built for the Android platform.
 
 ## Installing
