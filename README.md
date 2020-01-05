@@ -8,7 +8,7 @@ https://rocketseat.com.br/bootcamp
 
 ## Description
 
-Back-end, front-end and mobile aplication for the Rocketseat Bootcamp GoStack (Gympoint).
+Back-end, front-end and mobile application for the Rocketseat Bootcamp GoStack (Gympoint).
 
 ## Prerequisites
 
