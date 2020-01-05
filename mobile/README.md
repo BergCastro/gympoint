@@ -2,7 +2,7 @@
   <img alt="Gympoint" title="Gympoint" src="../.github/logo.png" width="200px" />
 </h1>
 
-# Rocketseat GoStack - mobile Gympoint
+# Rocketseat GoStack - mobile Gympoint - (Android platform)
 
 https://rocketseat.com.br/bootcamp
 
